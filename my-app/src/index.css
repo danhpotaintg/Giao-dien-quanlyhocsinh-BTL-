@@ -1,0 +1,21 @@
+/* src/index.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Tự định nghĩa các class tùy chỉnh bằng Tailwind */
+@layer components {
+  /* Class cho các nút bấm tiêu chuẩn */
+  .btn-primary {
+    @apply bg-primary text-white px-4 py-2 rounded-md font-medium hover:bg-primary-dark transition-all duration-200 shadow-sm;
+  }
+  
+  .btn-danger {
+    @apply bg-schoolDanger text-white px-4 py-2 rounded-md font-medium hover:bg-red-700 transition-all;
+  }
+
+  /* Style cho input form */
+  .input-field {
+    @apply w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent;
+  }
+}
