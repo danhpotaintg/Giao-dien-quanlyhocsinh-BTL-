@@ -7,8 +7,8 @@ export default function CreateTeacher() {
         password: "",
         fullName: "",
         dob: "",
-        parentEmail: "",
-        parentPhoneNum: "",
+        parentGmail: "",
+        parentPhoneNumber: "",
         gender: ""
     });
     const [error, setError] = useState('');
@@ -35,8 +35,8 @@ export default function CreateTeacher() {
                     password: formData.password,
                     fullName: formData.fullName,
                     dob: formData.dob,
-                    parentEmail: formData.parentEmail,
-                    parentPhoneNum: formData.parentPhoneNum,
+                    parentGmail: formData.parentGmail,
+                    parentPhonenumber: formData.parentPhonenumber,
                     gender: formData.gender
                 },
                 {
@@ -46,7 +46,7 @@ export default function CreateTeacher() {
 
             setSuccess('Tạo tài khoản thành công!');
             setFormData({ username: "", password: "", fullName: "", 
-                dob: "", parentEmail: "", parentPhoneNum: "", gender: "" });
+                dob: "", parentGmail: "", parentPhonenumber: "", gender: "" });
 
         } catch (err) {
             const backendMessage = err.response?.data?.message;
@@ -67,9 +67,9 @@ export default function CreateTeacher() {
             
             <input name="dob" type="date" value={formData.dob} onChange={handleChange} />
             
-            <input name="parentEmail" type="email" value={formData.parentEmail} onChange={handleChange} placeholder='Parent Email'/>
+            <input name="parentGmail" type="email" value={formData.parentGmail} onChange={handleChange} placeholder='Parent Email'/>
             
-            <input name="parentPhoneNum" type="number" value={formData.parentPhoneNum} onChange={handleChange} placeholder='Parent Phone Number'/>
+            <input name="parentPhonenumber" type="number" value={formData.parentPhonenumber} onChange={handleChange} placeholder='Parent Phone Number'/>
             
             <select name="gender" value={formData.gender} onChange={handleChange}>
                 <option value="">-- Chọn giới tính --</option>

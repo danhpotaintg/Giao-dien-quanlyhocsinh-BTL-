@@ -6,6 +6,14 @@ import Login from './pages/Login';
 import UserList from "./admin components/ListUser";
 import CreateTeacher from './admin components/CreateTeacher';
 import CreateStudent from "./admin components/CreateStudent";
+import CreateClass from "./admin components/CreateClass";
+import NewPassword from "./admin components/NewPassword";
+
+import StudentInfo from './student components/StudentInfo'; 
+
+import TeacherInfo from './teacher componets/TeacherInfo';
+
+
 function App() {
   const [role, setRole] = useState(() => localStorage.getItem('role') || null);
 
@@ -43,6 +51,11 @@ function App() {
              <Route path="admin/users" element={<UserList />} /> 
              <Route path="admin/users/create-teacher" element={<CreateTeacher />} /> 
              <Route path="admin/users/create-student" element={<CreateStudent />} /> 
+             <Route path="admin/classes/create" element={<CreateClass />} /> 
+             <Route path="admin/users/reset-password" element={<NewPassword />} /> 
+
+             <Route path="profile/student-info" element={<StudentInfo />} /> 
+             <Route path="profile/teacher-info" element={<TeacherInfo />} /> 
             {/* Bạn sẽ thêm các Route khác ở đây: /admin/users, /teacher/grades... */}
           </Route>
         )}
