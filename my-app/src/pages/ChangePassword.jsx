@@ -59,17 +59,8 @@ export default function ChangePassword() {
       
 
     } catch (error) {
-
-        const errorResponse = error.response?.data?.message;
-      let friendlyMsg = 'Có lỗi xảy ra khi đổi mật khẩu!';
-      
-      if (errorResponse === 'PASSWORD_INCORRECT') {
-        friendlyMsg = 'Mật khẩu cũ không chính xác!';
-      } else if (errorResponse === 'INVALID_PASSWORD') {
-        friendlyMsg = 'Mật khẩu mới không hợp lệ (tối thiểu 8 ký tự)!';
-      }
-
-      setMessage({ type: 'error', text: friendlyMsg });
+      const errorResponse = error.response?.data?.message;
+      setMessage({ type: 'error', text: errorResponse || 'Có lỗi xảy ra khi đổi mật khẩu!' });
     } finally {
       setIsLoading(false);
     }
