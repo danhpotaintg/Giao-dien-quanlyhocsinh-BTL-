@@ -41,11 +41,13 @@ export default function CreateTeacher() {
             );
 
             setSuccess('Tạo tài khoản thành công!');
+            setTimeout(() => setSuccess(''), 3000);
             setFormData({ username: "", password: "", fullName: "", dob: "", gender: "" });
 
         } catch (err) {
             const backendMessage = err.response?.data?.message;
             setError(backendMessage || 'Không thể tạo tài khoản!');
+            setTimeout(() => setError(''), 3000);
         }
 
     };

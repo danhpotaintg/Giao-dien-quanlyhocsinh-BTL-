@@ -41,12 +41,14 @@ export default function CreateClass() {
             );
 
             setSuccess('Tạo lớp học thành công!');
-            setFormData({ className: "", academicYear: "" }); // ← reset form khi thành công
+            setTimeout(() => setSuccess(''), 3000);
+            setFormData({ className: "", academicYear: "" }); 
 
         } catch (err) {
             const backendMessage = err.response?.data?.message;
             setError(backendMessage || 'Không thể tạo lớp học!');
-            setFormData({ className: "", academicYear: "" }); // ← reset form khi thất bại
+            setFormData({ className: "", academicYear: "" }); 
+            setTimeout(() => setError(''), 3000);
         }
     };
 
@@ -56,7 +58,7 @@ export default function CreateClass() {
 
             <input
                 name="className"
-                value={formData.className}   // ← sửa: formData.username → formData.className
+                value={formData.className}  
                 onChange={handleChange}
                 placeholder="Class name"
             />

@@ -12,7 +12,7 @@ import CreateClass from "./admin-components/CreateClass";
 import NewPassword from "./admin-components/NewPassword";
 import DeleteAcc from "./admin-components/DeleteUser";
 import UserUpdate from './admin-components/UserUpdate';
-
+import StudentClass from './admin-components/StudentClass';
 
 import StudentInfo from './student-components/StudentInfo'; 
 import StudentUpdate from './student-components/StudentUpdate';
@@ -63,6 +63,7 @@ function App() {
              <Route path="admin/users/reset-password" element={<NewPassword />} /> 
              <Route path="admin/users/delete" element={<DeleteAcc />} /> 
              <Route path="admin/users/edit" element={<UserUpdate />} /> 
+             <Route path="admin/classes/assign-student" element={<StudentClass />} /> 
 
              <Route path="profile/student-info" element={<StudentInfo />} /> 
              <Route path="profile/student-update" element={<StudentUpdate />} />
