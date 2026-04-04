@@ -42,9 +42,9 @@ export default function UserList() {
         <tbody>
           {users.map(user => (
             <tr key={user.id} className="hover:bg-gray-50">
-              <td className="border p-2">{user.id}</td>
-              <td className="border p-2">{user.username}</td>
-              <td className="border p-2">{user.role}</td>
+              <td className="border p-2 text-center w-16" >{user.id}</td>
+              <td className="border p-2 text-center w-16">{user.username}</td>
+              <td className="border p-2 text-center w-16">{user.role}</td>
             </tr>
           ))}
         </tbody>

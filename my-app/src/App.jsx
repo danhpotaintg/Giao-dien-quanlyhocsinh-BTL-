@@ -10,12 +10,17 @@ import CreateTeacher from './admin-components/CreateTeacher';
 import CreateStudent from "./admin-components/CreateStudent";
 import CreateClass from "./admin-components/CreateClass";
 import NewPassword from "./admin-components/NewPassword";
+import DeleteAcc from "./admin-components/DeleteUser";
+import UserUpdate from './admin-components/UserUpdate';
+import StudentClass from './admin-components/StudentClass';
+import HomeroomTeacherClass from './admin-components/HomeroomTeacherClass';
 
 import StudentInfo from './student-components/StudentInfo'; 
 import StudentUpdate from './student-components/StudentUpdate';
 
 import TeacherInfo from './teacher-components/TeacherInfo';
 import TeacherUpdate from './teacher-components/TeacherUpdate';
+import TeacherUploadAvatar from './teacher-components/TeacherUploadAvatar';
 
 function App() {
   const [role, setRole] = useState(() => localStorage.getItem('role') || null);
@@ -57,12 +62,17 @@ function App() {
              <Route path="admin/users/create-student" element={<CreateStudent />} /> 
              <Route path="admin/classes/create" element={<CreateClass />} /> 
              <Route path="admin/users/reset-password" element={<NewPassword />} /> 
+             <Route path="admin/users/delete" element={<DeleteAcc />} /> 
+             <Route path="admin/users/edit" element={<UserUpdate />} /> 
+             <Route path="admin/classes/assign-student" element={<StudentClass />} /> 
+             <Route path="admin/classes/assign-teacher-class" element={<HomeroomTeacherClass />} /> 
 
              <Route path="profile/student-info" element={<StudentInfo />} /> 
              <Route path="profile/student-update" element={<StudentUpdate />} />
 
              <Route path="profile/teacher-info" element={<TeacherInfo />} /> 
              <Route path="profile/teacher-update" element={<TeacherUpdate />} />
+             <Route path="profile/avatar" element={<TeacherUploadAvatar/>} />
             {/* Bạn sẽ thêm các Route khác ở đây: /admin/users, /teacher/grades... */}
           </Route>
         )}

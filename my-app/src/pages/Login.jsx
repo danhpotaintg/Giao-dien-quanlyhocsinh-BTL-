@@ -36,12 +36,8 @@ export default function Login({ onLogin }) {
   onLogin(role);
 
 } catch (err) {
-  if (err.response) {
     const backendMessage = err.response.data?.message;
-    setError(backendMessage || 'Đã có lỗi xảy ra!');
-  } else {
-    setError('Không thể kết nối đến Server. Vui lòng thử lại sau!');
-  }
+    setError(backendMessage || 'Không thể kết nối đến server!');
   }finally{
     setIsLoading(false);
   }

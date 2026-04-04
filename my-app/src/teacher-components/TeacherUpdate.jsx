@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 export default function TeacherUpdate() {
-  // 1. Khởi tạo state CHUẨN 100% theo file Java bạn đưa
+
   const [formData, setFormData] = useState({
     id: '', 
     fullName: '',
