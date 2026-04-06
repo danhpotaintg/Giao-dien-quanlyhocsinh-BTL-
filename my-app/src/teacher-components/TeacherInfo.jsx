@@ -39,6 +39,8 @@ export default function TeacherInfo(){
                             <th className="border p-2">Họ và tên</th>
                             <th className="border p-2">Ngày sinh</th>
                             <th className="border p-2">Giới tính</th>
+                            <th className="border p-2">Email</th>
+                            <th className="border p-2">Số điện thoại</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -46,6 +48,8 @@ export default function TeacherInfo(){
                             <td className="border p-2">{data.fullName}</td>
                             <td className="border p-2">{data.dob}</td>
                             <td className="border p-2">{data.gender}</td>
+                            <td className="border p-2">{data.email}</td>
+                            <td className="border p-2">{data.phoneNumber}</td>
                         </tr>
                     </tbody>
                 </table>

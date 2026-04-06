@@ -3,11 +3,11 @@ import axios from "axios";
 
 export default function CreateTeacher() {
   const [formData, setFormData] = useState({
-    username: "",
-    password: "",
     fullName: "",
     dob: "",
     gender: "",
+    email: "",
+    phoneNumber: "",
     subjectName: "",
   });
   const [error, setError] = useState("");
@@ -32,11 +32,11 @@ export default function CreateTeacher() {
       const response = await axios.post(
         "/quanly/teachers",
         {
-          username: formData.username,
-          password: formData.password,
           fullName: formData.fullName,
           dob: formData.dob,
           gender: formData.gender,
+          email: formData.email,
+          phoneNumber: formData.phoneNumber,
           subjectName: formData.subjectName,
         },
         {
@@ -47,11 +47,12 @@ export default function CreateTeacher() {
       setSuccess("Tạo tài khoản thành công!");
       setTimeout(() => setSuccess(""), 3000);
       setFormData({
-        username: "",
-        password: "",
+
         fullName: "",
         dob: "",
         gender: "",
+        email: "",
+        phoneNumber: "",
         subjectName: "",
       });
     } catch (err) {
@@ -65,19 +66,6 @@ export default function CreateTeacher() {
     <form onSubmit={handleSubmit}>
       <h3>Tạo tài khoản giáo viên</h3>
       <input
-        name="username"
-        value={formData.username}
-        onChange={handleChange}
-        placeholder="Username"
-      />
-      <input
-        name="password"
-        type="password"
-        value={formData.password}
-        onChange={handleChange}
-        placeholder="Password"
-      />
-      <input
         name="fullName"
         value={formData.fullName}
         onChange={handleChange}
@@ -88,6 +76,18 @@ export default function CreateTeacher() {
         type="date"
         value={formData.dob}
         onChange={handleChange}
+      />
+      <input
+        name="email"
+        value={formData.email}
+        onChange={handleChange}
+        placeholder="Email"
+      />
+      <input
+        name="phoneNumber"
+        value={formData.phoneNumber}
+        onChange={handleChange}
+        placeholder="Số điện thoại"
       />
       <input
         name="subjectName"
