@@ -4,7 +4,15 @@ import axios from 'axios';
 export default function TeacherInfo(){
     const [data, setData] = useState(null);
     const [error, setError] = useState('');
+    const gender = {
+        "MALE" : "NAM",
+        "FEMALE": "NỮ"
+    }
 
+    const subject = {
+        "English": "Tiếng Anh",
+        "Math": "Toán"
+    }
     useEffect(() => {
         const fetchInfo = async() => {
             try{const token = localStorage.getItem('token');
@@ -39,13 +47,15 @@ export default function TeacherInfo(){
                             <th className="border p-2">Họ và tên</th>
                             <th className="border p-2">Ngày sinh</th>
                             <th className="border p-2">Giới tính</th>
+                            <th className="border p-2">Môn dạy</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr className="hover:bg-gray-50">
-                            <td className="border p-2">{data.fullName}</td>
-                            <td className="border p-2">{data.dob}</td>
-                            <td className="border p-2">{data.gender}</td>
+                            <td className="border p-2 text-center w-16">{data.fullName}</td>
+                            <td className="border p-2 text-center w-16">{data.dob}</td>
+                            <td className="border p-2 text-center w-16">{gender[data.gender]}</td>
+                            <td className="border p-2 text-center w-16">{subject[data.subjectName]}</td>
                         </tr>
                     </tbody>
                 </table>

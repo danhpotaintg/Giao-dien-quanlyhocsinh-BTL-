@@ -1,57 +1,68 @@
 import { useState, useEffect } from 'react';
+import {Link} from "react-router-dom";
 import axios from 'axios';
 
 export default function Attendance(){
-    const [stuData, setStuData] = useState([]);
+    const [stucData, setStuData] = useState([]);
+    const [classData, setClassData] = useState([]);
     const [err, setErr] = useState("")
 
-    const fetchData = async() => {
+    const fetchClassData = async() => {
         try{
             const token = localStorage.getItem('token');
-            const response = await axios.get("/quanly/classes/my-class-students",{
+            const response = await axios.get("/quanly/schedules/teacher-classes",{
                 headers: {Authorization: `Bearer ${token}`}
             });
 
-            setStuData(response.data.result);
+            setClassData(response.data.result);
         }catch(err){
             const backendMessage = response?.data?.message;
-            setErr(backendMessage || "Không thể tải danh sách học sinh");
+            setErr(backendMessage || "Không thể tải danh sách lớp");
             setTimeout(() => setErr(''), 5000);
         }
     }
 
     useEffect(() => {
-        fetchData();
+        fetchClassData();
     }, []);
+
+    
+
+  
 
     return (
         <div>
             {err && <p style={{ color: 'red' }}>{err}</p>}
             
-            <h2 className="text-2xl font-bold mb-4 text-blue-600">Danh sách học sinh</h2>
-            
+            <h2 className="text-2xl font-bold mb-4 text-blue-600">Danh sách lớp giảng dạy</h2>
             <table className="w-full border-collapse border border-gray-300">
                 <thead className="bg-blue-600 text-white">
                     <tr>
-                        <th className="border p-2">Họ và tên</th>
-                        <th className="border p-2">Ngày sinh</th>
-                        <th className="border p-2">Giới tính</th>
-                        <th className="border p-2">Số điện thoại phụ huynh</th>
-                        <th className="border p-2">Email của phụ huynh</th>
+                        <th className="border p-2">Tên lớp</th>
+                        <th className="border p-2">Năm học</th>
+                        <th className="border p-2">Xem danh sách học sinh</th>                      
                     </tr>
                 </thead>
                 <tbody>
-                    {stuData.map(user => (
-                        <tr key={user.id} className="hover:bg-gray-50">
-                            <td className="border p-2 text-center w-16">{user.fullName}</td>
-                            <td className="border p-2 text-center w-16">{user.dob}</td>
-                            <td className="border p-2 text-center w-16">{user.gender}</td>
-                            <td className="border p-2 text-center w-16">{user.parentPhonenumber}</td>
-                            <td className="border p-2 text-center w-16">{user.parentGmail}</td>
+                    {classData.map(clas => (
+                        <tr key={clas.id} className="hover:bg-gray-50">
+                            <td className="border p-2 text-center w-16">{clas.className}</td>
+                            <td className="border p-2 text-center w-16">{clas.academicYear}</td>
+                            <td className="border p-2 text-center w-16">
+                                <Link 
+                                    to={`/teacher/attendance/${clas.id}`} 
+                                    className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
+                                >
+                                    Xem danh sách
+                                </Link>
+                            </td>
+
                         </tr>
                     ))}
                 </tbody>
             </table>
+            
+        
            
         </div>
     );
