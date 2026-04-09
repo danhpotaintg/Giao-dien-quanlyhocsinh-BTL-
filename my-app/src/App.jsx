@@ -29,6 +29,8 @@ import StudentSubjectList from './student-components/StudentSubjectList';
 import StudentGrade from './student-components/StudentGrade';
 import StudentSchedule from './student-components/StudentSchedules';
 import TeacherSchedule from './teacher-components/TeacherSchedules';
+import ScheduleDetails from './admin-components/ScheduleDetails';
+import CreateSchedules from "./admin-components/CreateSchedules";
 
 function App() {
   const [role, setRole] = useState(() => localStorage.getItem('role') || null);
@@ -74,12 +76,15 @@ function App() {
              <Route path="admin/users/edit" element={<UserUpdate />} /> 
              <Route path="admin/classes/assign-student" element={<StudentClass />} /> 
              <Route path="admin/classes/assign-teacher-class" element={<HomeroomTeacherClass />} /> 
+             <Route path="admin/classes/schedule" element={<ScheduleDetails />} /> 
+              <Route path="admin/classes/schedule/:teacherId/:classId" element={<CreateSchedules />} /> 
 
+              
              <Route path="profile/student-info" element={<StudentInfo />} /> 
              <Route path="profile/student-update" element={<StudentUpdate />} />
-             <Route path="/student/grades" element={<StudentSubjectList />} />
-             <Route path="/student/grade/:subjectId/:semester" element={<StudentGrade />} />
-             <Route path="/student/schedule/weekly" element={<StudentSchedule />} />
+             <Route path="student/grades" element={<StudentSubjectList />} />
+             <Route path="student/grade/:subjectId/:semester" element={<StudentGrade />} />
+             <Route path="student/schedule/weekly" element={<StudentSchedule />} />
 
              <Route path="profile/teacher-info" element={<TeacherInfo />} /> 
              <Route path="profile/teacher-update" element={<TeacherUpdate />} />
@@ -89,7 +94,7 @@ function App() {
              <Route path="teacher/grades" element={<Grade />} />  
              <Route path="teacher/class/:classId/:className" element={<StudentList />} />
              <Route path="teacher/grade/:studentId" element={<GradeEntry />} />
-             <Route path="/teacher/schedule/weekly" element={<TeacherSchedule />} />
+             <Route path="teacher/schedule/weekly" element={<TeacherSchedule />} />
 
             {/* Bạn sẽ thêm các Route khác ở đây: /admin/users, /teacher/grades... */}
           </Route>

@@ -85,6 +85,7 @@ export default function CreateTeacher() {
   const handlePreviewUpload = async () => {
     if (!selectedFile) {
       setImportError("Vui lòng chọn file Excel!");
+      setTimeout(() => setImportError(''), 5000);
       return;
     }
 

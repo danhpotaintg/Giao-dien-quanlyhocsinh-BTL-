@@ -12,6 +12,7 @@ export default function CreateStudent() {
     parentGmail: "",
     parentPhonenumber: "",
     gender: "",
+    className: "",
     academicYear: "",
   });
   const [manualError, setManualError] = useState("");
@@ -165,6 +166,7 @@ export default function CreateStudent() {
           <input name="dob" type="date" value={formData.dob} onChange={handleChange} required />
           <input name="parentGmail" type="email" value={formData.parentGmail} onChange={handleChange} placeholder="Email phụ huynh" />
           <input name="parentPhonenumber" type="text" value={formData.parentPhonenumber} onChange={handleChange} placeholder="Số điện thoại phụ huynh" />
+          <input name="className" type="text" value={formData.className} onChange={handleChange} placeholder="Lớp học"/>
           <input name="academicYear" type="number" value={formData.academicYear} onChange={handleChange} placeholder="Khóa (VD: 2022)" required />
           
           <select name="gender" value={formData.gender} onChange={handleChange} required>
