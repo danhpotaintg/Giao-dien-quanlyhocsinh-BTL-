@@ -31,6 +31,8 @@ import StudentSchedule from './student-components/StudentSchedules';
 import TeacherSchedule from './teacher-components/TeacherSchedules';
 import ScheduleDetails from './admin-components/ScheduleDetails';
 import CreateSchedules from "./admin-components/CreateSchedules";
+import ListLeaveRequest from './teacher-components/ListLeaveRequest';
+import CreateLeaveRequest from './student-components/CreateLeaveRequest';
 
 function App() {
   const [role, setRole] = useState(() => localStorage.getItem('role') || null);
@@ -85,6 +87,7 @@ function App() {
              <Route path="student/grades" element={<StudentSubjectList />} />
              <Route path="student/grade/:subjectId/:semester" element={<StudentGrade />} />
              <Route path="student/schedule/weekly" element={<StudentSchedule />} />
+             <Route path="student/leave-request" element={<CreateLeaveRequest />} />
 
              <Route path="profile/teacher-info" element={<TeacherInfo />} /> 
              <Route path="profile/teacher-update" element={<TeacherUpdate />} />
@@ -95,6 +98,7 @@ function App() {
              <Route path="teacher/class/:classId/:className" element={<StudentList />} />
              <Route path="teacher/grade/:studentId" element={<GradeEntry />} />
              <Route path="teacher/schedule/weekly" element={<TeacherSchedule />} />
+             <Route path="teacher/approvals" element={<ListLeaveRequest />} />
 
             {/* Bạn sẽ thêm các Route khác ở đây: /admin/users, /teacher/grades... */}
           </Route>

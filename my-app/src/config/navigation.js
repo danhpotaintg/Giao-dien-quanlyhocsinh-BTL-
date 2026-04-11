@@ -53,6 +53,8 @@ export const MENU_CONFIG = {
       title: 'Xem thời khoá biểu', path: '/teacher/schedule/weekly'
       
     },
+    { title: 'Phê duyệt đơn', path: '/teacher/approvals' },
+
     { title: 'Gửi thông báo tới phụ huynh', path: '/teacher/notifications' }
   ],
 
@@ -77,6 +79,7 @@ export const MENU_CONFIG = {
       title: 'Xem thời khoá biểu', path: '/student/schedule/weekly'
       
     },
+    { title: 'Gửi đơn xin nghỉ phép', path: '/student/leave-request' },
     { title: 'Thủ tục hành chính', path: '/student/administrative' }
   ]
 };
