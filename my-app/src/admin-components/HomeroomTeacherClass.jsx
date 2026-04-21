@@ -2,13 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 export default function HomeroomTeacherClass(){
-    const subject = {
-        "Math": "Toán",
-        "English": "Tiếng Anh",
-        "Physics": "Vật lý",
-        "Chemistry": "Hoá học",
-        "Literature": "Ngữ văn" 
-    }
+  
 
     const gender = {
         "MALE":"Nam",
@@ -115,7 +109,7 @@ export default function HomeroomTeacherClass(){
                     <td className="border p-2 text-center w-16" >{teacher.id}</td>
                     <td className="border p-2 text-center w-16">{teacher.fullName}</td>
                     <td className="border p-2 text-center w-16">{gender[teacher.gender]}</td>
-                    <td className="border p-2 text-center w-16">{subject[teacher.subjectName] || teacher.subjectName}</td>
+                    <td className="border p-2 text-center w-16">{teacher.subjectName}</td>
                     <td className="border p-2 text-center w-16">
                         {teacher.className ? (
                             <span>{teacher.className}</span>

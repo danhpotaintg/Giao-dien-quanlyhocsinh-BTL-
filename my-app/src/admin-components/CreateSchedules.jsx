@@ -3,13 +3,7 @@ import axios from 'axios';
 import { useParams, Link } from 'react-router-dom';
 
 export default function CreateSchedules(){
-    const subject = {
-        "Math": "Toán",
-        "English": "Tiếng Anh",
-        "Physics": "Vật lý",
-        "Chemistry": "Hoá học",
-        "Literature": "Ngữ văn" 
-    }
+
     const VNsubject = {
         "Toán": "Math",
         "Tiếng Anh": "English",
@@ -33,6 +27,8 @@ export default function CreateSchedules(){
         setFormData((prev) => ({ ...prev, [name]: value }));
     };
     
+    const [subjectData, setSubjectData] = useState([]);
+
     const {teacherId, classId} = useParams();
     
     const [schedules, setSchedules] = useState([]);
@@ -44,6 +40,26 @@ export default function CreateSchedules(){
     const lessons = Array.from({ length: 12 }, (_, i) => i + 1); // Tiết 1 đến 12
 
 
+     useEffect(() => {
+        const fetchSubject = async() => {
+          try{
+            const token = localStorage.getItem("token");
+            const response = await axios.get("/quanly/subjects",
+              {
+              headers: { Authorization: `Bearer ${token}` }
+              }
+            );
+
+            setSubjectData(response.data.result);
+          }catch(err){
+            const backendMessage = err.response?.data?.message;
+            console.log(err);
+            setErr(backendMessage || "Không thể lấy danh sách môn học!");
+            setTimeout(() => setErr(""), 3000);
+          }
+        }
+        fetchSubject();
+      }, [])
 
     const fetchSchedule = async () => {
         if (!classId || classId === "null") return;
@@ -76,7 +92,7 @@ export default function CreateSchedules(){
             const response = await axios.post(`/quanly/schedules`,
                 {
                     classId: classId,
-                    subjectName: VNsubject[formData.subjectName],
+                    subjectName: formData.subjectName,
                     teacherId: teacherId,
                     startLesson: parseInt(formData.startLesson),
                     endLesson: parseInt(formData.endLesson),
@@ -150,8 +166,19 @@ export default function CreateSchedules(){
                         <tbody>
                             <tr>
                                 <td className="p-2">
-                                    <select name="subjectName" value={formData.subjectName} onChange={handleChange} className="w-full border p-1 rounded">
-                                        {Object.keys(VNsubject).map(name => <option key={name} value={name}>{name}</option>)}
+                                    <select 
+                                        name="subjectName"
+                                        value={formData.subjectName}
+                                        onChange={handleChange}
+                                        className="w-full border p-1 rounded"
+                                        required
+                                    >   
+                                        <option value="">Chọn môn học</option>
+                                        {subjectData.map(data => (
+                                            <option key={data.id} value={data.subjectName}>
+                                                {data.subjectName}
+                                            </option>   
+                                        ))}
                                     </select>
                                 </td>
                                 <td className="p-2">
@@ -206,7 +233,7 @@ export default function CreateSchedules(){
                                         <td key={day} className={`border p-1 text-sm text-center ${schedule ? 'bg-blue-50' : ''}`}>
                                             {schedule && (
                                                 <div className="flex flex-col">
-                                                    <span className="font-bold text-blue-700">{subject[schedule.subjectName] || schedule.subjectName}</span>
+                                                    <span className="font-bold text-blue-700">{ schedule.subjectName}</span>
                                                     <span className="text-xs text-gray-600">
                                                         {`GV: ${schedule.teacherName}`}
                                                     </span>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 export default function CreateTeacher() {
@@ -15,6 +15,8 @@ export default function CreateTeacher() {
     phoneNumber: "",
     subjectName: "",
   });
+
+  const [subject, setSubject] = useState([]);
   const [manualError, setManualError] = useState("");
   const [manualSuccess, setManualSuccess] = useState("");
 
@@ -26,6 +28,26 @@ export default function CreateTeacher() {
   const [isLoading, setIsLoading] = useState(false);
 
   // ================= LOGIC TẠO THỦ CÔNG =================
+  useEffect(() => {
+    const fetchSubject = async() => {
+      try{
+        const token = localStorage.getItem("token");
+        const response = await axios.get("/quanly/subjects",
+          {
+          headers: { Authorization: `Bearer ${token}` }
+          }
+        );
+        console.log(response.data);
+        setSubject(response.data.result);
+      }catch(err){
+        const backendMessage = err.response?.data?.message;
+        setManualError(backendMessage || "Không thể lấy danh sách môn học!");
+        setTimeout(() => setManualError(""), 3000);
+      }
+    }
+    fetchSubject();
+  }, [])
+  
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData((prev) => ({
@@ -73,6 +95,8 @@ export default function CreateTeacher() {
       setTimeout(() => setManualError(""), 3000);
     }
   };
+
+
 
   // ================= LOGIC IMPORT EXCEL =================
   const handleFileChange = (e) => {
@@ -177,8 +201,21 @@ export default function CreateTeacher() {
           <input name="dob" type="date" value={formData.dob} onChange={handleChange} required />
           <input name="email" type="email" value={formData.email} onChange={handleChange} placeholder="Email" required />
           <input name="phoneNumber" type="text" value={formData.phoneNumber} onChange={handleChange} placeholder="Số điện thoại" required />
-          <input name="subjectName" type="text" value={formData.subjectName} onChange={handleChange} placeholder="Môn giảng dạy (VD: Toán)" required />
           
+          <select 
+              name="subjectName"
+              value={formData.subjectName}
+              onChange={handleChange}
+              required
+          >   
+              <option value="">-- Chọn môn học --</option>
+              {subject.map(data => (
+                  <option key={data.id} value={data.subjectName}>
+                      {data.subjectName}
+                  </option>   
+              ))}
+          </select>
+           
           <select name="gender" value={formData.gender} onChange={handleChange} required>
             <option value="">-- Chọn giới tính --</option>
             <option value="MALE">Nam</option>
