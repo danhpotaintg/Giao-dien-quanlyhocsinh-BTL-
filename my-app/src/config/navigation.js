@@ -25,8 +25,10 @@ export const MENU_CONFIG = {
     {
       title: 'Thống kê',
       children: [
+        { title: 'Giáo viên', path: '/admin/stats/teachers' },
         { title: 'Kết quả học tập', path: '/admin/stats/grades' },
-        { title: 'Báo cáo tài chính', path: '/admin/stats/finance' },
+        { title: 'Xếp hạng học tập', path: '/admin/stats/grade-ranking' }
+        
       ]
     },
     { title: 'Phê duyệt đơn', path: '/admin/approvals' },

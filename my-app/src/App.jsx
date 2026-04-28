@@ -15,6 +15,11 @@ import StudentClass from './admin-components/StudentClass';
 import HomeroomTeacherClass from './admin-components/HomeroomTeacherClass';
 import CreateNotification from "./admin-components/CreateNotification";
 
+//thong ke
+import TeacherStats from './admin-components/TeacherStats';
+import GradeStats from './admin-components/GradeStats';
+import GradeRanking from './admin-components/GradeRanking';
+
 import StudentInfo from './student-components/StudentInfo'; 
 import StudentUpdate from './student-components/StudentUpdate';
 
@@ -87,6 +92,10 @@ function App() {
              <Route path="admin/classes/schedule/:teacherId/:classId/:subjectName" element={<CreateSchedules />} /> 
              <Route path="admin/classes/assign-teacher" element={<TeacherSubstitution />} />  
              <Route path="admin/classes/assign-teacher/:teacherId" element={<AssignTeacher />} />
+
+             <Route path="admin/stats/teachers" element={<TeacherStats />} />
+             <Route path="admin/stats/grades" element={<GradeStats />} />
+             <Route path="admin/stats/grade-ranking" element={<GradeRanking />} />
              <Route path="admin/notifications" element={<CreateNotification />} /> 
 
              <Route path="profile/student-info" element={<StudentInfo />} /> 
