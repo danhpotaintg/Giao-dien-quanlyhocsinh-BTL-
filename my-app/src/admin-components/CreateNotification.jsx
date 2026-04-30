@@ -14,13 +14,6 @@ export default function CreateNotification() {
   const [classId, setClassId] = useState("");
   const [err, setErr] = useState("");
 
-  const subject = {
-      "Math": "Toán",
-      "English": "Tiếng Anh",
-      "Physics": "Vật lý",
-      "Chemistry": "Hoá học",
-      "Literature": "Ngữ văn" 
-  }
 
   const fetchTeacher = async() => {
       try{
@@ -150,7 +143,7 @@ export default function CreateNotification() {
             <option value="">Gửi cho toàn bộ giáo viên</option>
             {teacherData.map(teacher => (
               <option key={teacher.id} value={teacher.id}>
-                {teacher.fullName} ({subject[teacher.subjectName] || teacher.subjectName})
+                {teacher.fullName} ({teacher.subjectName || teacher.subjectName})
               </option>
             ))}
           </select>

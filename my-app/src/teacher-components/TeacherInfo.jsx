@@ -9,13 +9,6 @@ export default function TeacherInfo(){
         "FEMALE": "NỮ"
     }
 
-    const subject = {
-        "Math": "Toán",
-        "English": "Tiếng Anh",
-        "Physics": "Vật lý",
-        "Chemistry": "Hoá học",
-        "Literature": "Ngữ văn" 
-    }
 
     useEffect(() => {
         const fetchInfo = async() => {

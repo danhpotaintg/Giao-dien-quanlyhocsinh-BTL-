@@ -28,6 +28,7 @@ export default function StudentGrade() {
             });
 
             setGradeData(response.data.result);
+            console.log("data"+response.data.result);
 
         }catch(error){
             console.error("Môn này chưa có điểm", error);

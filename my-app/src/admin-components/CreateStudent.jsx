@@ -118,13 +118,13 @@ export default function CreateStudent() {
             Authorization: `Bearer ${token}`,
             "Content-Type": "multipart/form-data",
           }
-          // ĐÃ XÓA responseType: "blob"
+          
         }
       );
 
-      // Nhận câu thông báo "Import dữ liệu thành công!" từ Backend
+      // Import thanh cong
       setImportSuccess(response.data.result || "Import thành công!");
-      setPreviewData([]); // Xóa bảng sau khi tạo xong
+      setPreviewData([]); 
     } catch (err) {
       setImportError(err.response?.data?.message || "Lỗi trong quá trình tạo tài khoản hàng loạt.");
     } finally {
@@ -132,7 +132,7 @@ export default function CreateStudent() {
     }
   };
 
-  // Hàm helper để tô màu từng dòng trong bảng Preview
+  // To mau bang tao 
   const getRowStyle = (row) => {
     if (!row.valid) return { backgroundColor: "#ff8c8c" }; 
     if (row.valid && row.hasWarning) return { backgroundColor: "#ffd966" }; 

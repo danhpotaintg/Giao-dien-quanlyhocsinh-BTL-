@@ -3,13 +3,6 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
 export default function AssignTeacher() {
-    const subject = {
-        "Math": "Toán",
-        "English": "Tiếng Anh",
-        "Physics": "Vật lý",
-        "Chemistry": "Hoá học",
-        "Literature": "Ngữ văn" 
-    };
     
     const { teacherId } = useParams();
     const [schedules, setSchedules] = useState([]);

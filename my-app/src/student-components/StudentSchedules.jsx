@@ -2,13 +2,6 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 export default function StudentSchedule(){ 
-    const subject = {
-        "Math": "Toán",
-        "English": "Tiếng Anh",
-        "Physics": "Vật lý",
-        "Chemistry": "Hoá học",
-        "Literature": "Ngữ văn" 
-    }
 
     const [schedules, setSchedules] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -67,7 +60,7 @@ export default function StudentSchedule(){
                                         <td key={day} className={`border p-1 text-sm text-center ${schedule ? 'bg-blue-50' : ''}`}>
                                             {schedule && (
                                                 <div className="flex flex-col">
-                                                    <span className="font-bold text-blue-700">{subject[schedule.subjectName] || schedule.subjectName}</span>
+                                                    <span className="font-bold text-blue-700">{schedule.subjectName || schedule.subjectName}</span>
                                                     <span className="text-xs text-gray-600">
                                                         {`GV: ${schedule.teacherName}`}
                                                     </span>
