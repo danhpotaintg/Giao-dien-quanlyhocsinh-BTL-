@@ -42,6 +42,7 @@ import CreateLeaveRequest from './student-components/CreateLeaveRequest';
 import TeacherSubstitution from "./admin-components/TeacherSubstitution";
 import AssignTeacher from "./admin-components/AssignTeacher";
 import TeacherNotifications from './teacher-components/TeacherNotifications';
+import GradeImport from './teacher-components/GradeImportExcel';
 
 
 function App() {
@@ -112,6 +113,7 @@ function App() {
              <Route path="teacher/grades" element={<Grade />} />  
              <Route path="teacher/class/:classId/:className" element={<StudentList />} />
              <Route path="teacher/grade/:studentId" element={<GradeEntry />} />
+             <Route path="teacher/grade-import/:classId/:className" element={<GradeImport />} />
              <Route path="teacher/schedule/weekly" element={<TeacherSchedule />} />
              <Route path="teacher/approvals" element={<ListLeaveRequest />} />
              <Route path="teacher/notifications" element={<TeacherNotifications />} />
