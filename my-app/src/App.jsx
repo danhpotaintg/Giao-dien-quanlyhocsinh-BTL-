@@ -92,7 +92,6 @@ function App() {
              <Route path="admin/classes/schedule/:teacherId/:classId/:subjectName" element={<CreateSchedules />} /> 
              <Route path="admin/classes/assign-teacher" element={<TeacherSubstitution />} />  
              <Route path="admin/classes/assign-teacher/:teacherId" element={<AssignTeacher />} />
-
              <Route path="admin/stats/teachers" element={<TeacherStats />} />
              <Route path="admin/stats/grades" element={<GradeStats />} />
              <Route path="admin/stats/grade-ranking" element={<GradeRanking />} />

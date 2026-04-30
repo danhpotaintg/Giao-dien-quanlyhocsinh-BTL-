@@ -110,8 +110,6 @@ export default function GradeEntry() {
                     value={`${selection.academicYear}-${selection.semester}`}
                 >
                     <option value="-">-- Chọn năm học và học kỳ --</option>
-                    <option value="2024-1">Học kì 1 năm 2024</option>
-                    <option value="2024-2">Học kì 2 năm 2024</option>
                     <option value="2025-1">Học kì 1 năm 2025</option>
                     <option value="2025-1">Học kì 2 năm 2025</option>
                 </select>
