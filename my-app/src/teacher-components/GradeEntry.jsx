@@ -3,17 +3,12 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
 export default function GradeEntry() {
-    const { studentId } = useParams();
+    const { studentId, year, semester } = useParams();
+    
     const [configs, setConfigs] = useState([]);
     const [teacherSubject, setTeacherSubject] = useState([]);
     const [selectedConfig, setSelectedConfig] = useState(null);
-    const [subjectId, setSubjectId] = useState("");
     const [err, setErr] = useState("");
-
-    const [selection, setSelection] = useState({
-        academicYear: "",
-        semester: ""
-    });
 
     const [formData, setFormData] = useState({
         gradeConfigId: '',
@@ -21,72 +16,47 @@ export default function GradeEntry() {
         score: ''
     });
 
+
     useEffect(() => {
-        const fetchData = async () => {
-            try{
+        const fetchSubject = async () => {
+            try {
                 const token = localStorage.getItem('token');
                 const res = await axios.get(`/quanly/teachers/subject`, {
-                    headers: {Authorization: `Bearer ${token}`}
+                    headers: { Authorization: `Bearer ${token}` }
                 });
-
-                const subId = res.data.result.id; 
                 setTeacherSubject(res.data.result);
-                setSubjectId(subId);
-            }catch(error){
-                const backendMessage = error?.data?.message;
-                setErr(backendMessage || "Không thể tải môn dạy của giáo viên");
-                setTimeout(() => setErr(''), 5000);
+                fetchConfigs(res.data.result.id);
+            } catch (error) {
+                setErr("Không thể tải môn dạy");
             }
         };
-        fetchData();
-    }, []);
 
-
-    useEffect(() => {
-    const fetchConfigs = async () => {
-            if (!subjectId || !selection.academicYear || !selection.semester) return;
-
+        const fetchConfigs = async (subId) => {
+            if (!subId || !year || !semester) return;
             try {
                 const token = localStorage.getItem('token');
                 const res = await axios.get(
-                    `/quanly/gradeConfigs/bulk-year-semseter/${subjectId}?academicYear=${selection.academicYear}&semester=${selection.semester}`, 
+                    `/quanly/gradeConfigs/bulk-year-semseter/${subId}?academicYear=${year}&semester=${semester}`, 
                     { headers: { Authorization: `Bearer ${token}` } }
                 );
-                
                 setConfigs(res.data.result.configs || []);
             } catch (error) {
-                console.error("Lỗi lấy cấu hình điểm:", error);
-                setConfigs([]); 
+                setConfigs([]);
             }
         };
-        fetchConfigs();
-    }, [subjectId, selection]);
 
-    const handleChange = (event) => {
-        const value = event.target.value;
-        if (value && value !== "-") {
-            const [year, sem] = value.split('-'); 
-            setSelection({
-                academicYear: year,
-                semester: sem
-            });
-        } else {
-            setSelection({ academicYear: "", semester: "" });
-            setConfigs([]); 
-        }
-    };
+        fetchSubject();
+    }, [year, semester]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-    
-    
-        if (!studentId || studentId === "undefined") {
-            alert("Lỗi: Không tìm thấy ID học sinh. Vui lòng quay lại danh sách.");
+        if (!formData.gradeConfigId || !formData.score) {
+            alert("Vui lòng chọn loại điểm và nhập điểm số");
             return;
         }
+
         try {
             const token = localStorage.getItem('token');
- 
             await axios.post(
                 `/quanly/grades/${studentId}/${formData.gradeConfigId}?entryIndex=${formData.entryIndex}`,
                 { score: formData.score },
@@ -98,25 +68,15 @@ export default function GradeEntry() {
         }
     };
 
-
     return (
-        <form onSubmit={handleSubmit} className="p-6 bg-white shadow rounded">
-            <h2 className="text-xl font-bold mb-4">Nhập điểm môn {teacherSubject.subjectName} cho học sinh</h2>
-            {err && <div className="text-red-500 bg-red-50 p-2 rounded mb-4">{err}</div>}
-            <div>
-                <select 
-                    className="mb-4 p-2 border rounded border-gray-300"
-                    onChange={handleChange}
-                    value={`${selection.academicYear}-${selection.semester}`}
-                >
-                    <option value="-">-- Chọn năm học và học kỳ --</option>
-                    <option value="2025-1">Học kì 1 năm 2025</option>
-                    <option value="2025-1">Học kì 2 năm 2025</option>
-                </select>
-            </div>
-            {/* 1. Chọn loại điểm */}
+        <form onSubmit={handleSubmit} className="p-6 bg-white shadow rounded max-w-lg mx-auto">
+            <h2 className="text-xl font-bold mb-2">Nhập điểm: {teacherSubject.subjectName}</h2>
+            <p className="text-gray-600 mb-4">Năm học: {year} | Học kỳ: {semester}</p>
+            
+            {err && <div className="text-red-500 mb-4">{err}</div>}
+
             <div className="mb-4">
-                <label>Loại điểm:</label>
+                <label className="block mb-1 font-medium">Loại điểm:</label>
                 <select 
                     className="w-full border p-2 rounded"
                     value={formData.gradeConfigId}
@@ -124,7 +84,7 @@ export default function GradeEntry() {
                         const configId = e.target.value;
                         const found = configs.find(c => String(c.id) === String(configId));
                         setSelectedConfig(found);
-                        setFormData({ ...formData, gradeConfigId: configId, entryIndex: 1 }); 
+                        setFormData({ ...formData, gradeConfigId: configId, entryIndex: 1 });
                     }}
                 >
                     <option value="">-- Chọn loại điểm --</option>
@@ -134,35 +94,37 @@ export default function GradeEntry() {
                 </select>
             </div>
 
-            {/* 2. Chọn cột điểm (Entry Index) */}
+            {selectedConfig && (
+                <div className="mb-4">
+                    <label className="block mb-1 font-medium">
+                        Cột điểm số (Tối đa {selectedConfig.maxEntries} cột):
+                    </label>
+                    <input 
+                        type="number" 
+                        min="1"
+                        max={selectedConfig.maxEntries} 
+                        value={formData.entryIndex}
+                        onChange={(e) => setFormData({ ...formData, entryIndex: e.target.value })}
+                        className="w-full border p-2 rounded"
+                    />
+                </div>
+            )}
+
             <div className="mb-4">
-                <label className="block font-medium mb-1">
-                    Cột điểm số (Tối đa: {selectedConfig?.maxEntries || "..."} cột):
-                </label>
+                <label className="block mb-1 font-medium">Điểm số (0-10):</label>
                 <input 
                     type="number" 
-                    min="1"
-                    // Sử dụng selectedConfig để giới hạn giá trị nhập
-                    max={selectedConfig?.maxEntries} 
-                    value={formData.entryIndex}
-                    onChange={(e) => setFormData({ ...formData, entryIndex: e.target.value })}
+                    step="0.1"
+                    min="0"
+                    max="10"
+                    required
+                    value={formData.score}
+                    onChange={(e) => setFormData({...formData, score: e.target.value})}
                     className="w-full border p-2 rounded"
                 />
             </div>
 
-            {/* 3. Nhập điểm số */}
-            <div className="mb-4">
-                <label>Điểm số (0-10):</label>
-                <input 
-                    type="number" 
-                    step="0.1"
-                    required
-                    onChange={(e) => setFormData({...formData, score: e.target.value})}
-                    className="w-full border p-2"
-                />
-            </div>
-
-            <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded">
+            <button type="submit" className="w-full bg-blue-600 text-white py-2 rounded font-bold">
                 Lưu điểm
             </button>
         </form>

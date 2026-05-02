@@ -112,7 +112,7 @@ function App() {
              <Route path="teacher/attendance/:classId/:className" element={<AttendanceDetail />} />
              <Route path="teacher/grades" element={<ClassList />} />  
              <Route path="teacher/class/:classId/:className/:academicYear" element={<StudentList />} />
-             <Route path="teacher/grade/:studentId" element={<GradeEntry />} />
+             <Route path="teacher/grade/:studentId/:year/:semester" element={<GradeEntry />} />
              <Route path="teacher/grade-import/:classId/:className" element={<GradeImport />} />
              <Route path="teacher/schedule/weekly" element={<TeacherSchedule />} />
              <Route path="teacher/approvals" element={<ListLeaveRequest />} />
