@@ -29,7 +29,6 @@ import TeacherUploadAvatar from './teacher-components/TeacherUploadAvatar';
 import Attendance from './teacher-components/Attendance';
 import AttendanceDetail from "./teacher-components/AttendanceDetail";
 import StudentList from './teacher-components/StudentList';
-import Grade from "./teacher-components/Grade";
 import GradeEntry from "./teacher-components/GradeEntry";
 import StudentSubjectList from './student-components/StudentSubjectList';
 import StudentGrade from './student-components/StudentGrade';
@@ -43,6 +42,7 @@ import TeacherSubstitution from "./admin-components/TeacherSubstitution";
 import AssignTeacher from "./admin-components/AssignTeacher";
 import TeacherNotifications from './teacher-components/TeacherNotifications';
 import GradeImport from './teacher-components/GradeImportExcel';
+import ClassList from './teacher-components/ClassList';
 
 
 function App() {
@@ -110,8 +110,8 @@ function App() {
              <Route path="profile/avatar" element={<TeacherUploadAvatar/>} />
              <Route path="teacher/attendance" element={<Attendance />} /> 
              <Route path="teacher/attendance/:classId/:className" element={<AttendanceDetail />} />
-             <Route path="teacher/grades" element={<Grade />} />  
-             <Route path="teacher/class/:classId/:className" element={<StudentList />} />
+             <Route path="teacher/grades" element={<ClassList />} />  
+             <Route path="teacher/class/:classId/:className/:academicYear" element={<StudentList />} />
              <Route path="teacher/grade/:studentId" element={<GradeEntry />} />
              <Route path="teacher/grade-import/:classId/:className" element={<GradeImport />} />
              <Route path="teacher/schedule/weekly" element={<TeacherSchedule />} />

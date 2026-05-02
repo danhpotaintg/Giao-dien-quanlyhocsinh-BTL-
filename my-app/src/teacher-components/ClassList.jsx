@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import {Link} from "react-router-dom";
 import axios from 'axios';
 
-export default function Attendance(){
+export default function ClassList(){
     const [classData, setClassData] = useState([]);
     const [err, setErr] = useState("")
 
@@ -49,10 +49,10 @@ export default function Attendance(){
                             <td className="border p-2 text-center w-16">{clas.academicYear}</td>
                             <td className="border p-2 text-center w-16">
                                 <Link 
-                                    to={`/teacher/class/${clas.id}/${clas.className}`} 
+                                    to={`/teacher/class/${clas.id}/${clas.className}/${clas.academicYear}`} 
                                     className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
                                 >
-                                    Xem danh sách
+                                    Xem danh sách học sinh
                                 </Link>
                             </td>
                             
