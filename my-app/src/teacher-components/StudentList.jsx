@@ -82,6 +82,14 @@ export default function StudentList() {
                             <option value={2}>Học kỳ 2</option>
                         </select>
                     </div>
+                    <div>
+                        <button
+                        onClick={() => navigate(`/teacher/grade-import/${classId}/${className}/${selectedYear}/${semester}`)}
+                        className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+                        >
+                            Nhập điểm từ file Excel
+                        </button>
+                    </div>
                 </div>
             </div>
 
