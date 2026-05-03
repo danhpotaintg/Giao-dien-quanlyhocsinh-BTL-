@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 export default function TeacherSchedule(){ 
-    const subject = {
-        "Math": "Toán",
-        "English": "Tiếng Anh",
-        "Physics": "Vật lý",
-        "Chemistry": "Hoá học",
-        "Literature": "Ngữ văn" 
-    }
+
+    const [semester, setSemester] = useState(1);
+    const [selectedYear, setSelectedYear] = useState(2025);
+
+    const getAvailableYears = () => {
+        const base = parseInt(2025);
+        return [base, base + 1, base + 2, base + 3, base + 4];
+    };
 
     const [schedules, setSchedules] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -20,7 +21,7 @@ export default function TeacherSchedule(){
         const fetchSchedule = async () => {
             try {
                 const token = localStorage.getItem('token');
-                const response = await axios.get('/quanly/schedules/teacher',{
+                const response = await axios.get(`/quanly/schedules/teacher/${semester}/${selectedYear}`,{
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 setSchedules(response.data.result);
@@ -31,7 +32,7 @@ export default function TeacherSchedule(){
             }
         };
         fetchSchedule();
-    }, []);
+    }, [semester, selectedYear]);
 
     // Hàm tìm tiết học cụ thể cho một ô trong bảng
     const getSubjectAt = (day, lesson) => {
@@ -45,7 +46,34 @@ export default function TeacherSchedule(){
             <h2 className="text-2xl font-bold mb-4 text-center text-blue-800">
                 THỜI KHÓA BIỂU 
             </h2>
-            
+            <div className="flex gap-4 items-center">
+                <div>
+                    <label className="mr-2 font-bold">Học kỳ:</label>
+                    <select 
+                        value={semester} 
+                        onChange={(e) => setSemester(Number(e.target.value))} 
+                        className="p-2 border rounded"
+                    >
+                        <option value={1}>Học kỳ 1</option>
+                        <option value={2}>Học kỳ 2</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label className="mr-2 font-bold">Năm học:</label>
+                    <select 
+                        value={selectedYear} 
+                        onChange={(e) => setSelectedYear(e.target.value)} 
+                        className="p-2 border rounded"
+                    >
+                        {getAvailableYears().map(year => (
+                            <option key={year} value={year}>{year}</option>
+                        ))}
+                    </select>
+                </div>
+            </div>
+                
+
             <div className="overflow-x-auto shadow-lg rounded-lg">
                 <table className="w-full border-collapse border border-gray-300 bg-white">
                     <thead className="bg-blue-600 text-white">
@@ -66,7 +94,7 @@ export default function TeacherSchedule(){
                                         <td key={day} className={`border p-1 text-sm text-center ${schedule ? 'bg-blue-50' : ''}`}>
                                             {schedule && (
                                                 <div className="flex flex-col">
-                                                    <span className="font-bold text-blue-700">{subject[schedule.subjectName] || schedule.subjectName}</span>
+                                                    <span className="font-bold text-blue-700">{schedule.subjectName}</span>
                                                     <span className="text-xs text-gray-600">
                                                         {`Lớp: ${schedule.className}`}
                                                     </span>

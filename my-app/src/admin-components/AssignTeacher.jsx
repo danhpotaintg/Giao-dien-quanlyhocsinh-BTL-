@@ -13,6 +13,14 @@ export default function AssignTeacher() {
     const [subDate, setSubDate] = useState(new Date().toISOString().split('T')[0]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     
+    const [semester, setSemester] = useState(1);
+    const [selectedYear, setSelectedYear] = useState(2025);
+
+    const getAvailableYears = () => {
+        const base = parseInt(2025);
+        return [base, base + 1, base + 2, base + 3, base + 4];
+    };
+
     // state quản lý bộ lọc gv cùng môn
     const [onlySameSubject, setOnlySameSubject] = useState(true);
 
@@ -23,7 +31,7 @@ export default function AssignTeacher() {
     const fetchSchedule = async () => {
         try {
             const token = localStorage.getItem('token');
-            const response = await axios.get(`/quanly/schedules/teacher/${teacherId}`, {
+                const response = await axios.get(`/quanly/schedules/teacher/${teacherId}/${semester}/${selectedYear}`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setSchedules(response.data.result);
@@ -36,7 +44,7 @@ export default function AssignTeacher() {
 
     useEffect(() => {
         fetchSchedule();
-    }, [teacherId]);
+    }, [teacherId, semester, selectedYear]);
 
     // lấy danh sách giáo viên rảnh
     const fetchFreeTeachers = async (scheduleId, filter) => {
@@ -93,6 +101,33 @@ export default function AssignTeacher() {
             <h2 className="text-2xl font-bold mb-6 text-center text-blue-800 uppercase tracking-wider">
                 Điều phối dạy thay đột xuất
             </h2>
+
+            <div className="flex gap-4 items-center">
+                <div>
+                    <label className="mr-2 font-bold">Học kỳ:</label>
+                    <select 
+                        value={semester} 
+                        onChange={(e) => setSemester(Number(e.target.value))} 
+                        className="p-2 border rounded"
+                    >
+                        <option value={1}>Học kỳ 1</option>
+                        <option value={2}>Học kỳ 2</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label className="mr-2 font-bold">Năm học:</label>
+                    <select 
+                        value={selectedYear} 
+                        onChange={(e) => setSelectedYear(e.target.value)} 
+                        className="p-2 border rounded"
+                    >
+                        {getAvailableYears().map(year => (
+                            <option key={year} value={year}>{year}</option>
+                        ))}
+                    </select>
+                </div>
+            </div>
             
             <div className="overflow-x-auto shadow-2xl rounded-xl border border-gray-200">
                 <table className="w-full border-collapse bg-white">

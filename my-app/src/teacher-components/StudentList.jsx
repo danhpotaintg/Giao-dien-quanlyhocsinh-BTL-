@@ -10,11 +10,11 @@ export default function StudentList() {
     const [err, setErr] = useState("");
     const [subjectId, setSubjectId] = useState('');
     const [semester, setSemester] = useState(1);
-    const [selectedYear, setSelectedYear] = useState(academicYear   );
+    const [selectedYear, setSelectedYear] = useState(academicYear);
     const [gradeData, setGradeData] = useState(null);
 
     const getAvailableYears = () => {
-        const base = parseInt(academicYear) || new Date().getFullYear();
+        const base = parseInt(academicYear);
         return [base, base + 1, base + 2];
     };
 
@@ -82,6 +82,12 @@ export default function StudentList() {
                             <option value={2}>Học kỳ 2</option>
                         </select>
                     </div>
+                    <button
+                        onClick={() => navigate(`/teacher/grade-import/${classId}/${className}`)}
+                        className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+                    >
+                        Import điểm từ Excel
+                    </button>
                 </div>
             </div>
 

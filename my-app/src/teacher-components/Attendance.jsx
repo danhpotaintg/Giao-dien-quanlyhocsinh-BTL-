@@ -7,10 +7,17 @@ export default function Attendance(){
     const [classData, setClassData] = useState([]);
     const [err, setErr] = useState("")
 
+    const [selectedYear, setSelectedYear] = useState(2025);
+    
+    const getAvailableYears = () => {
+        const base = parseInt(2025);
+        return [base, base + 1, base + 2, base + 3, base + 4];
+    };
+
     const fetchClassData = async() => {
         try{
             const token = localStorage.getItem('token');
-            const response = await axios.get("/quanly/schedules/teacher-classes",{
+            const response = await axios.get(`/quanly/schedules/teacher-classes/${selectedYear}`,{
                 headers: {Authorization: `Bearer ${token}`}
             });
 
@@ -24,7 +31,7 @@ export default function Attendance(){
 
     useEffect(() => {
         fetchClassData();
-    }, []);
+    }, [selectedYear]);
 
     
 
@@ -35,6 +42,17 @@ export default function Attendance(){
             {err && <p style={{ color: 'red' }}>{err}</p>}
             
             <h2 className="text-2xl font-bold mb-4 text-blue-600">Danh sách lớp giảng dạy</h2>
+            <label className="mr-2 font-bold">Năm học:</label>
+            <select 
+                value={selectedYear} 
+                onChange={(e) => setSelectedYear(e.target.value)} 
+                className="p-2 border rounded"
+            >
+                {getAvailableYears().map(year => (
+                    <option key={year} value={year}>{year}</option>
+                ))}
+            </select>
+
             <table className="w-full border-collapse border border-gray-300">
                 <thead className="bg-blue-600 text-white">
                     <tr>
