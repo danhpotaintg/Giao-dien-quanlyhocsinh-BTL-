@@ -44,7 +44,7 @@ export default function TeacherNotifications() {
                 {/* Header đơn giản */}
                 <div className="bg-[#1e40af] p-4 text-center">
                     <h2 className="text-white font-bold text-lg uppercase">
-                        Gửi thông báo chủ nhiệm
+                        Gửi thông báo tới lớp chủ nhiệm
                     </h2>
                 </div>
 

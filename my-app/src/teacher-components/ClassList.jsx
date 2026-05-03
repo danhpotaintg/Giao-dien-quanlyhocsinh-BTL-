@@ -64,22 +64,34 @@ export default function ClassList(){
                     </tr>
                 </thead>
                 <tbody>
-                    {classData.map(clas => (
-                        <tr key={clas.id} className="hover:bg-gray-50">
-                            <td className="border p-2 text-center w-16">{clas.className}</td>
-                            <td className="border p-2 text-center w-16">{clas.academicYear}</td>
-                            <td className="border p-2 text-center w-16">
-                                <Link 
-                                    to={`/teacher/class/${clas.id}/${clas.className}/${clas.academicYear}`} 
-                                    className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
-                                >
-                                    Xem danh sách học sinh
-                                </Link>
-                            </td>
-                            
+                    {classData.length > 0 ? (
+                        classData.map(clas => (
+                            <tr key={clas.id} className="hover:bg-gray-50">
+                                <td className="border p-2 text-center w-16">{clas.className}</td>
+                                <td className="border p-2 text-center w-16">{clas.academicYear}</td>
+                                <td className="border p-2 text-center w-16">
+                                    <Link 
+                                        to={`/teacher/class/${clas.id}/${clas.className}/${clas.academicYear}`} 
+                                        className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
+                                    >
+                                        Xem danh sách học sinh
+                                    </Link>
+                                </td>
+                                
 
+                            </tr>
+                        ))
+                    ):(
+                        <tr>
+                            <td colSpan="2" className="border p-10 text-center text-gray-500 italic">
+                                {selectedYear 
+                                    ? `Không tìm thấy lớp học cho năm ${selectedYear}`
+                                    : "Vui lòng chọn năm học để hiển thị dữ liệu."
+                                }
+                            </td>
                         </tr>
-                    ))}
+                    )
+                }
                 </tbody>
             </table>
             

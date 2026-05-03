@@ -3,13 +3,6 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
 export default function StudentGrade() {
-    const subject = {
-        "Math": "Toán",
-        "English": "Tiếng Anh",
-        "Physics": "Vật lý",
-        "Chemistry": "Hoá học",
-        "Literature": "Ngữ văn" 
-    }
 
     const [err, setErr] = useState("");
     const [gradeData, setGradeData] = useState(null);
@@ -28,7 +21,7 @@ export default function StudentGrade() {
             });
 
             setGradeData(response.data.result);
-            console.log("data"+response.data.result);
+            console.log(response.data.result);
 
         }catch(error){
             console.error("Môn này chưa có điểm", error);
@@ -42,7 +35,7 @@ export default function StudentGrade() {
         <div className="p-4">
 
             <h2 className="text-2xl font-bold mb-6 text-blue-700">
-                Kết quả học tập: {subject[gradeData?.subjectName]}
+                Kết quả học tập: {gradeData?.subjectName}
             </h2>
 
             <div className="overflow-x-auto shadow-md rounded-lg">

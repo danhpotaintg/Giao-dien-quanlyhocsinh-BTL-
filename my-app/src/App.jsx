@@ -9,8 +9,8 @@ import UserList from "./admin-components/ListUser";
 import CreateTeacher from './admin-components/CreateTeacher';
 import CreateStudent from "./admin-components/CreateStudent";
 import CreateClass from "./admin-components/CreateClass";
-import DeleteAcc from "./admin-components/DeleteUser";
-import UserUpdate from './admin-components/UserUpdate';
+
+
 import StudentClass from './admin-components/StudentClass';
 import HomeroomTeacherClass from './admin-components/HomeroomTeacherClass';
 import CreateNotification from "./admin-components/CreateNotification";
@@ -85,8 +85,7 @@ function App() {
              <Route path="admin/users/create-student" element={<CreateStudent />} /> 
              <Route path="admin/classes/create" element={<CreateClass />} /> 
             
-             <Route path="admin/users/delete" element={<DeleteAcc />} /> 
-             <Route path="admin/users/edit" element={<UserUpdate />} /> 
+
              <Route path="admin/classes/assign-student" element={<StudentClass />} /> 
              <Route path="admin/classes/assign-teacher-class" element={<HomeroomTeacherClass />} /> 
              <Route path="admin/classes/schedule" element={<ScheduleDetails />} /> 

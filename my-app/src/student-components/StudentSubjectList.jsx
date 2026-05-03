@@ -8,6 +8,13 @@ export default function StudentSubjectList() {
     const [subjectList, setSubjectList] = useState([]);
     const [err, setErr] = useState("");
 
+    const [semester, setSemester] = useState(1);
+    const [selectedYear, setSelectedYear] = useState(2025);
+
+    const getAvailableYears = () => {
+        const base = parseInt(2025);
+        return [base, base + 1, base + 2, base + 3, base + 4];
+    };
 
     const [selection, setSelection] = useState({
         academicYear: "",
@@ -19,7 +26,7 @@ export default function StudentSubjectList() {
             const token = localStorage.getItem('token');
    
             const response = await axios.get(
-                `/quanly/grades/student/subjects?semester=${selection.semester}`, 
+                `/quanly/grades/student/subjects?semester=${semester}&academicYear=${selectedYear}`, 
                 { headers: { Authorization: `Bearer ${token}` } }
             );
             setSubjectList(response.data.result);
@@ -31,39 +38,39 @@ export default function StudentSubjectList() {
     };
 
     useEffect(() => {
-        if (selection.academicYear && selection.semester) {
-            fetchSubjectList();
-        }
-    }, [selection]);
+        fetchSubjectList();
+    }, [semester, selectedYear]);
 
-    const handleChange = (event) => {
-        const value = event.target.value;
-        if (value) {
-            const [year, sem] = value.split('-'); 
-            setSelection({
-                academicYear: year,
-                semester: sem
-            });
-        } else {
-            setSelection({ academicYear: "", semester: "" });
-            setSubjectList([]);
-        }
-    };
+
 
     return (
         <div className="p-4">
-            {/* Thẻ select dùng value gộp "Năm-Kỳ" */}
-            <select 
-                className="mb-4 p-2 border rounded border-gray-300"
-                onChange={handleChange}
-                value={`${selection.academicYear}-${selection.semester}`}
-            >
-                <option value="-">-- Chọn năm học và học kỳ --</option>
-                <option value="2024-1">Học kì 1 năm 2024</option>
-                <option value="2024-2">Học kì 2 năm 2024</option>
-                <option value="2025-1">Học kì 1 năm 2025</option>
-                <option value="2025-1">Học kì 2 năm 2025</option>
-            </select>
+            <div className="flex gap-4 items-center">
+                <div>
+                    <label className="mr-2 font-bold">Học kỳ:</label>
+                    <select 
+                        value={semester} 
+                        onChange={(e) => setSemester(Number(e.target.value))} 
+                        className="p-2 border rounded"
+                    >
+                        <option value={1}>Học kỳ 1</option>
+                        <option value={2}>Học kỳ 2</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label className="mr-2 font-bold">Năm học:</label>
+                    <select 
+                        value={selectedYear} 
+                        onChange={(e) => setSelectedYear(e.target.value)} 
+                        className="p-2 border rounded"
+                    >
+                        {getAvailableYears().map(year => (
+                            <option key={year} value={year}>{year}</option>
+                        ))}
+                    </select>
+                </div>
+            </div>
             
             {err && <div className="text-red-500 bg-red-50 p-2 rounded mb-4">{err}</div>}
 
@@ -83,7 +90,7 @@ export default function StudentSubjectList() {
                                 </td>
                                 <td className="border p-2"> 
                                     <Link 
-                                        to={`/student/grade/${data.id}/${selection.semester}/${selection.academicYear}`} 
+                                            to={`/student/grade/${data.id}/${semester}/${selectedYear}`} 
                                         className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 inline-block"
                                     >
                                         Xem điểm
@@ -94,8 +101,8 @@ export default function StudentSubjectList() {
                     ) : (
                         <tr>
                             <td colSpan="2" className="border p-10 text-center text-gray-500 italic">
-                                {selection.academicYear 
-                                    ? `Không tìm thấy môn học cho học kỳ ${selection.semester} năm ${selection.academicYear}`
+                                {selectedYear 
+                                    ? `Không tìm thấy môn học cho học kỳ ${semester} năm ${selectedYear}`
                                     : "Vui lòng chọn học kỳ để hiển thị dữ liệu."
                                 }
                             </td>
