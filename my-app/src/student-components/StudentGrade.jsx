@@ -37,6 +37,7 @@ export default function StudentGrade() {
             <h2 className="text-2xl font-bold mb-6 text-blue-700">
                 Kết quả học tập: {gradeData?.subjectName}
             </h2>
+            
 
             <div className="overflow-x-auto shadow-md rounded-lg">
                 <table className="w-full border-collapse bg-white">

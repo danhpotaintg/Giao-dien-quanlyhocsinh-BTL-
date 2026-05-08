@@ -70,7 +70,17 @@ export default function StudentSubjectList() {
                         ))}
                     </select>
                 </div>
+                
+                <div>
+                    <Link 
+                            to={`/student/allgrade/${semester}/${selectedYear}`} 
+                        className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 inline-block"
+                    >
+                        Xem phiếu điểm
+                    </Link>
+                </div>
             </div>
+            
             
             {err && <div className="text-red-500 bg-red-50 p-2 rounded mb-4">{err}</div>}
 

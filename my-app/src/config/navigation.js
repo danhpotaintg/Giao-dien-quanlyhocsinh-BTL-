@@ -74,6 +74,5 @@ export const MENU_CONFIG = {
     },
     { title: 'Xem thời khoá biểu', path: '/student/schedule/weekly' },
     { title: 'Gửi đơn xin nghỉ phép', path: '/student/leave-request' },
-    { title: 'Thủ tục hành chính', path: '/student/administrative' }
   ]
 };
