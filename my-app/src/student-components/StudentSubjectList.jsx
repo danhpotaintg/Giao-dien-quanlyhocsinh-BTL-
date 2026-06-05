@@ -45,76 +45,73 @@ export default function StudentSubjectList() {
 
     return (
         <div className="p-4">
-            <div className="flex gap-4 items-center">
-                <div>
-                    <label className="mr-2 font-bold">Học kỳ:</label>
-                    <select 
-                        value={semester} 
-                        onChange={(e) => setSemester(Number(e.target.value))} 
-                        className="p-2 border rounded"
+            {/* Header */}
+            <div className="flex justify-between items-center mb-6">
+                <h2 className="text-2xl font-bold text-blue-600">Danh sách môn học</h2>
+                <Link
+                    to={`/student/allgrade/${semester}/${selectedYear}`}
+                    className="bg-green-600 hover:bg-green-700 text-white font-bold px-6 py-2.5 rounded-lg transition-colors"
+                >
+                    Xem bảng điểm
+                </Link>
+            </div>
+
+            {/* Bộ lọc */}
+            <div className="flex gap-6 mb-6">
+                <div className="flex items-center gap-2">
+                    <label className="font-bold text-base text-gray-700">Học kỳ:</label>
+                    <select
+                        value={semester}
+                        onChange={(e) => setSemester(Number(e.target.value))}
+                        className="border border-gray-300 p-2 rounded focus:outline-none focus:border-blue-600 text-base"
                     >
                         <option value={1}>Học kỳ 1</option>
                         <option value={2}>Học kỳ 2</option>
                     </select>
                 </div>
-
-                <div>
-                    <label className="mr-2 font-bold">Năm học:</label>
-                    <select 
-                        value={selectedYear} 
-                        onChange={(e) => setSelectedYear(e.target.value)} 
-                        className="p-2 border rounded"
+                <div className="flex items-center gap-2">
+                    <label className="font-bold text-base text-gray-700">Năm học:</label>
+                    <select
+                        value={selectedYear}
+                        onChange={(e) => setSelectedYear(e.target.value)}
+                        className="border border-gray-300 p-2 rounded focus:outline-none focus:border-blue-600 text-base"
                     >
                         {getAvailableYears().map(year => (
                             <option key={year} value={year}>{year}</option>
                         ))}
                     </select>
                 </div>
-                
-                <div>
-                    <Link 
-                            to={`/student/allgrade/${semester}/${selectedYear}`} 
-                        className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 inline-block"
-                    >
-                        Xem phiếu điểm
-                    </Link>
-                </div>
             </div>
-            
-            
-            {err && <div className="text-red-500 bg-red-50 p-2 rounded mb-4">{err}</div>}
 
-            <table className="w-full border-collapse border border-gray-300">
+            {err && <div className="text-red-500 font-semibold bg-red-50 p-2.5 rounded border border-red-200 mb-4">{err}</div>}
+
+            {/* Bảng */}
+            <table className="w-full table-fixed border-collapse border border-gray-300 shadow-sm rounded-lg overflow-hidden">
                 <thead className="bg-blue-600 text-white">
                     <tr>
-                        <th className="border p-2 text-center">Tên môn</th>
-                        <th className="border p-2 text-center w-32">Thao tác</th>
+                        <th className="border p-3 text-center font-bold text-base">Tên môn học</th>
+                        <th className="border p-3 text-center font-bold text-base">Thao tác</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody className="text-base">
                     {subjectList && subjectList.length > 0 ? (
-                        subjectList.map(data => (
-                            <tr key={data.id} className="hover:bg-gray-50 text-center">
-                                <td className="border p-2">
-                                    { data.subjectName}
-                                </td>
-                                <td className="border p-2"> 
-                                    <Link 
-                                            to={`/student/grade/${data.id}/${semester}/${selectedYear}`} 
-                                        className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 inline-block"
+                        subjectList.map((data, index) => (
+                            <tr key={data.id} className="hover:bg-blue-50/50 transition">
+                                <td className="border p-3 text-center font-bold text-gray-800">{data.subjectName}</td>
+                                <td className="border p-3 text-center">
+                                    <Link
+                                        to={`/student/grade/${data.id}/${semester}/${selectedYear}`}
+                                        className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-4 py-1.5 rounded transition-colors inline-block"
                                     >
                                         Xem điểm
                                     </Link>
                                 </td>
-                            </tr>  
+                            </tr>
                         ))
                     ) : (
                         <tr>
-                            <td colSpan="2" className="border p-10 text-center text-gray-500 italic">
-                                {selectedYear 
-                                    ? `Không tìm thấy môn học cho học kỳ ${semester} năm ${selectedYear}`
-                                    : "Vui lòng chọn học kỳ để hiển thị dữ liệu."
-                                }
+                            <td colSpan="3" className="border p-10 text-center text-gray-500 italic">
+                                {`Không tìm thấy môn học cho học kỳ ${semester} năm ${selectedYear}`}
                             </td>
                         </tr>
                     )}

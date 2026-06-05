@@ -142,120 +142,161 @@ export default function CreateStudent() {
   return (
     <div style={{ padding: "20px", maxWidth: "1000px", margin: "0 auto" }}>
       
-      {/* ================= THANH ĐIỀU HƯỚNG TABS ================= */}
-      <div style={{ display: "flex", gap: "10px", marginBottom: "20px" }}>
-        <button
-          onClick={() => setActiveTab("manual")}
-          style={{ padding: "10px 20px", cursor: "pointer", fontWeight: activeTab === "manual" ? "bold" : "normal" }}
-        >
-          Thêm thủ công
-        </button>
-        <button
-          onClick={() => setActiveTab("excel")}
-          style={{ padding: "10px 20px", cursor: "pointer", fontWeight: activeTab === "excel" ? "bold" : "normal" }}
-        >
-          Import từ Excel
-        </button>
+      {/* THANH ĐIỀU HƯỚNG TABS */}
+      <div className="flex justify-center border-b border-gray-300 mb-6">
+          <button
+              onClick={() => setActiveTab("manual")}
+              className={`px-6 py-3 font-bold text-base transition-colors ${
+                  activeTab === "manual"
+                      ? "border-b-2 border-blue-600 text-blue-600"
+                      : "text-gray-500 hover:text-blue-600"
+              }`}
+          >
+              Thêm thủ công
+          </button>
+          <button
+              onClick={() => setActiveTab("excel")}
+              className={`px-6 py-3 font-bold text-base transition-colors ${
+                  activeTab === "excel"
+                      ? "border-b-2 border-blue-600 text-blue-600"
+                      : "text-gray-500 hover:text-blue-600"
+              }`}
+          >
+              Import từ Excel
+          </button>
       </div>
 
       {/* ================= TAB 1: FORM TẠO THỦ CÔNG ================= */}
       {activeTab === "manual" && (
-        <form onSubmit={handleManualSubmit} style={{ display: "flex", flexDirection: "column", gap: "15px", maxWidth: "500px" }}>
-          <h3>Tạo tài khoản học sinh</h3>
-          <input name="fullName" value={formData.fullName} onChange={handleChange} placeholder="Họ và tên" required />
-          <input name="dob" type="date" value={formData.dob} onChange={handleChange} required />
-          <input name="parentGmail" type="email" value={formData.parentGmail} onChange={handleChange} placeholder="Email phụ huynh" />
-          <input name="parentPhonenumber" type="text" value={formData.parentPhonenumber} onChange={handleChange} placeholder="Số điện thoại phụ huynh" />
-          <input name="className" type="text" value={formData.className} onChange={handleChange} placeholder="Lớp học"/>
-          <input name="academicYear" type="number" value={formData.academicYear} onChange={handleChange} placeholder="Khóa (VD: 2022)" required />
-          
-          <select name="gender" value={formData.gender} onChange={handleChange} required>
-            <option value="">-- Chọn giới tính --</option>
-            <option value="MALE">Nam</option>
-            <option value="FEMALE">Nữ</option>
-          </select>
+          <div className="max-w-2xl mx-auto">
+              <div className="bg-white rounded shadow border border-gray-200">
+                  <div className="bg-blue-600 p-4 text-center">
+                      <h2 className="text-white font-bold text-lg">Tạo tài khoản học sinh</h2>
+                  </div>
+                  <form onSubmit={handleManualSubmit} className="p-6 space-y-4">
+                      {manualError && <div className="bg-red-50 text-red-700 p-3 rounded border border-red-200 text-base font-semibold">{manualError}</div>}
+                      {manualSuccess && <div className="bg-green-50 text-green-700 p-3 rounded border border-green-200 text-base font-semibold">{manualSuccess}</div>}
 
-          {manualError && <p style={{ color: "red" }}>{manualError}</p>}
-          {manualSuccess && <p style={{ color: "green" }}>{manualSuccess}</p>}
-          
-          <button type="submit" style={{ padding: "10px", cursor: "pointer" }}>Tạo học sinh</button>
-        </form>
+                      <div>
+                          <label className="block text-base font-semibold text-gray-700 mb-1">Họ và tên</label>
+                          <input name="fullName" value={formData.fullName} onChange={handleChange} required
+                              className="w-full border border-gray-300 p-2.5 rounded focus:outline-none focus:border-blue-600 text-base" placeholder="Nhập họ và tên..." />
+                      </div>
+                      <div>
+                          <label className="block text-base font-semibold text-gray-700 mb-1">Ngày sinh</label>
+                          <input name="dob" type="date" value={formData.dob} onChange={handleChange} required
+                              className="w-full border border-gray-300 p-2.5 rounded focus:outline-none focus:border-blue-600 text-base" />
+                      </div>
+                      <div>
+                          <label className="block text-base font-semibold text-gray-700 mb-1">Email phụ huynh</label>
+                          <input name="parentGmail" type="email" value={formData.parentGmail} onChange={handleChange}
+                              className="w-full border border-gray-300 p-2.5 rounded focus:outline-none focus:border-blue-600 text-base" placeholder="Nhập email phụ huynh..." />
+                      </div>
+                      <div>
+                          <label className="block text-base font-semibold text-gray-700 mb-1">Số điện thoại phụ huynh</label>
+                          <input name="parentPhonenumber" value={formData.parentPhonenumber} onChange={handleChange}
+                              className="w-full border border-gray-300 p-2.5 rounded focus:outline-none focus:border-blue-600 text-base" placeholder="Nhập số điện thoại..." />
+                      </div>
+                      <div>
+                          <label className="block text-base font-semibold text-gray-700 mb-1">Lớp học</label>
+                          <input name="className" value={formData.className} onChange={handleChange}
+                              className="w-full border border-gray-300 p-2.5 rounded focus:outline-none focus:border-blue-600 text-base" placeholder="VD: 10A1..." />
+                      </div>
+                      <div>
+                          <label className="block text-base font-semibold text-gray-700 mb-1">Khóa học</label>
+                          <input name="academicYear" type="number" value={formData.academicYear} onChange={handleChange} required
+                              className="w-full border border-gray-300 p-2.5 rounded focus:outline-none focus:border-blue-600 text-base" placeholder="VD: 2022..." />
+                      </div>
+                      <div>
+                          <label className="block text-base font-semibold text-gray-700 mb-1">Giới tính</label>
+                          <select name="gender" value={formData.gender} onChange={handleChange} required
+                              className="w-full border border-gray-300 p-2.5 rounded focus:outline-none focus:border-blue-600 text-base bg-white">
+                              <option value="">-- Chọn giới tính --</option>
+                              <option value="MALE">Nam</option>
+                              <option value="FEMALE">Nữ</option>
+                          </select>
+                      </div>
+
+                      <button type="submit"
+                          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 mt-2 rounded transition-colors text-base">
+                          Tạo học sinh
+                      </button>
+                  </form>
+              </div>
+          </div>
       )}
 
       {/* ================= TAB 2: IMPORT EXCEL ================= */}
       {activeTab === "excel" && (
-        <div>
-          <h3>Import Học Sinh hàng loạt bằng Excel</h3>
-          
-          <div style={{ marginBottom: "20px", display: "flex", gap: "10px", alignItems: "center" }}>
-            <input type="file" accept=".xlsx, .xls" onChange={handleFileChange} />
-            <button onClick={handlePreviewUpload} disabled={isLoading} style={{ padding: "8px 15px", cursor: "pointer" }}>
-              {isLoading ? "Đang xử lý..." : "Xem trước dữ liệu"}
-            </button>
-          </div>
+        <div className="max-w-4xl mx-auto">
+            <div className="bg-white rounded shadow border border-gray-200">
+                <div className="bg-blue-600 p-4 text-center">
+                    <h2 className="text-white font-bold text-lg">Import học sinh từ Excel</h2>
+                </div>
+                <div className="p-6 space-y-4">
+                    {importError && <div className="bg-red-50 text-red-700 p-3 rounded border border-red-200 text-base font-semibold">{importError}</div>}
+                    {importSuccess && <div className="bg-green-50 text-green-700 p-3 rounded border border-green-200 text-base font-semibold">{importSuccess}</div>}
 
-          {importError && <p style={{ color: "red" }}>{importError}</p>}
-          {importSuccess && <p style={{ color: "green" }}>{importSuccess}</p>}
+                    <div className="flex items-center gap-4">
+                        <input type="file" accept=".xlsx,.xls" onChange={handleFileChange}
+                            className="flex-1 border border-gray-300 p-2 rounded text-base text-gray-700" />
+                        <button onClick={handlePreviewUpload} disabled={isLoading}
+                            className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-5 py-2.5 rounded transition-colors disabled:bg-gray-400 text-base whitespace-nowrap">
+                            {isLoading ? "Đang xử lý..." : "Xem trước dữ liệu"}
+                        </button>
+                    </div>
 
-          {/* Bảng hiển thị dữ liệu Preview */}
-          {previewData.length > 0 && (
-            <>
-              <div style={{ overflowX: "auto", marginBottom: "20px" }}>
-                <table border="1" cellPadding="10" style={{ width: "100%", borderCollapse: "collapse", textAlign: "left" }}>
-                  <thead>
-                    <tr style={{ backgroundColor: "#f4f4f4" }}>
-                      <th>Họ Tên</th>
-                      <th>Ngày sinh</th>
-                      <th>Giới tính</th>
-                      <th>Niên khóa</th>
-                      <th>Email PH</th>
-                      <th>SĐT PH</th>
-                      <th>Trạng thái dữ liệu</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {previewData.map((row, index) => (
-                      <tr key={index} style={getRowStyle(row)}>
-                        <td>{row.fullName}</td>
-                        <td>{row.dob}</td>
-                        <td>{row.gender}</td>
-                        <td>{row.academicYear}</td>
-                        <td>{row.parentGmail}</td>
-                        <td>{row.parentPhonenumber}</td>
-                        <td>
-                          {!row.valid ? (
-                            <strong>Lỗi: {row.errorNote}</strong>
-                          ) : row.hasWarning ? (
-                            <span>Cảnh báo: {row.warningNote}</span>
-                          ) : (
-                            <span>Hợp lệ</span>
-                          )}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+                    {previewData.length > 0 && (
+                        <>
+                            <div className="overflow-x-auto">
+                                <table className="w-full table-fixed border-collapse border border-gray-300 rounded-lg overflow-hidden">
+                                    <thead className="bg-blue-600 text-white">
+                                        <tr>
+                                            <th className="border p-3 text-left font-bold text-base w-[20%]">Họ tên</th>
+                                            <th className="border p-3 text-center font-bold text-base w-[12%]">Ngày sinh</th>
+                                            <th className="border p-3 text-center font-bold text-base w-[10%]">Giới tính</th>
+                                            <th className="border p-3 text-center font-bold text-base w-[10%]">Khóa</th>
+                                            <th className="border p-3 text-center font-bold text-base w-[20%]">Email PH</th>
+                                            <th className="border p-3 text-center font-bold text-base w-[15%]">SĐT PH</th>
+                                            <th className="border p-3 text-center font-bold text-base w-[13%]">Trạng thái</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody className="text-base">
+                                        {previewData.map((row, index) => (
+                                            <tr key={index} className={`border-b ${!row.valid ? 'bg-red-100' : row.hasWarning ? 'bg-yellow-100' : 'bg-green-100'}`}>
+                                                <td className="border p-3 font-bold text-gray-800">{row.fullName}</td>
+                                                <td className="border p-3 text-center text-gray-700">{row.dob}</td>
+                                                <td className="border p-3 text-center text-gray-700">{row.gender}</td>
+                                                <td className="border p-3 text-center text-gray-700">{row.academicYear}</td>
+                                                <td className="border p-3 text-center text-gray-700">{row.parentGmail}</td>
+                                                <td className="border p-3 text-center text-gray-700">{row.parentPhonenumber}</td>
+                                                <td className="border p-3 text-center font-bold">
+                                                    {!row.valid ? <span className="text-red-700">Lỗi: {row.errorNote}</span>
+                                                        : row.hasWarning ? <span className="text-yellow-700">Cảnh báo: {row.warningNote}</span>
+                                                        : <span className="text-green-700">Hợp lệ</span>}
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
 
-              {/* Các nút bấm Xác nhận tạo */}
-              <div style={{ display: "flex", gap: "15px" }}>
-                <button
-                  onClick={() => handleConfirmImport("ACCEPT_WARNING")}
-                  style={{ padding: "10px", backgroundColor: "#007bff", color: "white", border: "none", cursor: "pointer" }}
-                >
-                  Tạo tất cả (Bỏ qua dòng Đỏ, Giữ dòng Vàng)
-                </button>
-                <button
-                  onClick={() => handleConfirmImport("STRICT")}
-                  style={{ padding: "10px", backgroundColor: "#28a745", color: "white", border: "none", cursor: "pointer" }}
-                >
-                  Chỉ tạo dữ liệu hoàn hảo (Bỏ qua Đỏ & Vàng)
-                </button>
-              </div>
-            </>
-          )}
+                            <div className="flex gap-4 pt-2">
+                                <button onClick={() => handleConfirmImport("ACCEPT_WARNING")}
+                                    className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 rounded transition-colors text-base">
+                                    Tạo tất cả (Bỏ qua dòng Đỏ, Giữ dòng Vàng)
+                                </button>
+                                <button onClick={() => handleConfirmImport("STRICT")}
+                                    className="flex-1 bg-green-600 hover:bg-green-700 text-white font-bold py-2.5 rounded transition-colors text-base">
+                                    Chỉ tạo dữ liệu hoàn hảo (Bỏ qua Đỏ & Vàng)
+                                </button>
+                            </div>
+                        </>
+                    )}
+                </div>
+            </div>
         </div>
-      )}
+    )}
     </div>
   );
 }

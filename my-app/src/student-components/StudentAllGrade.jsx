@@ -33,103 +33,77 @@ export default function StudentAllGrade() {
     if (!gradeData) return <div className="p-4 text-center text-red-500">Không tìm thấy dữ liệu điểm.</div>;
 
     return (
-        <div className="p-6 bg-gray-50 min-h-screen">
-            {/* Header: Thông tin chung */}
-            <div className="mb-8">
-                <h1 className="text-3xl font-bold">PHIẾU ĐIỂM CHI TIẾT</h1>
-                <p className="text-gray-500">Học kỳ {gradeData.semester} | Năm học {gradeData.academicYear}</p>
+        <div className="p-4">
+            {/* Header */}
+            <div className="flex justify-between items-center mb-6">
+                <div>
+                    <h2 className="text-2xl font-bold text-blue-600">Bảng điểm chi tiết</h2>
+                    <p className="text-gray-500 text-sm mt-1">Học kỳ {gradeData.semester} | Năm học {gradeData.academicYear}</p>
+                </div>
             </div>
 
             {/* Stats Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
-                <div className="bg-white p-6 rounded-xl shadow-sm border-l-4 border-blue-500">
-                    <div className="flex items-center justify-between">
-                        <div>
-                            <p className="text-sm text-gray-500 uppercase font-bold">Điểm trung bình (GPA)</p>
-                            <h3 className="text-2xl font-black text-blue-600">{gradeData.semesterGPA?.toFixed(2) || "N/A"}</h3>
-                        </div>
-                        <FaChartLine className="text-3xl text-blue-200" />
-                    </div>
+            <div className="grid grid-cols-4 gap-4 mb-6">
+                <div className="bg-white border border-gray-200 rounded-lg p-4">
+                    <p className="text-sm font-bold text-gray-500 mb-1">Điểm trung bình (GPA)</p>
+                    <p className="text-xl font-bold text-blue-600">{gradeData.semesterGPA?.toFixed(2) || "N/A"}</p>
                 </div>
-
-                <div className="bg-white p-6 rounded-xl shadow-sm border-l-4 border-green-500">
-                    <div className="flex items-center justify-between">
-                        <div>
-                            <p className="text-sm text-gray-500 uppercase font-bold">Xếp loại</p>
-                            <h3 className="text-2xl font-black text-green-600">{gradeData.academicRank || "---"}</h3>
-                        </div>
-                        <FaGraduationCap className="text-3xl text-green-200" />
-                    </div>
+                <div className="bg-white border border-gray-200 rounded-lg p-4">
+                    <p className="text-sm font-bold text-gray-500 mb-1">Xếp loại</p>
+                    <p className="text-xl font-bold text-blue-600">{gradeData.academicRank || "---"}</p>
                 </div>
-
-                <div className="bg-white p-6 rounded-xl shadow-sm border-l-4 border-yellow-500">
-                    <div className="flex items-center justify-between">
-                        <div>
-                            <p className="text-sm text-gray-500 uppercase font-bold">Danh hiệu</p>
-                            <h3 className="text-xl font-black text-yellow-600">{gradeData.title || "Chưa có"}</h3>
-                        </div>
-                        <FaStar className="text-3xl text-yellow-200" />
-                    </div>
+                <div className="bg-white border border-gray-200 rounded-lg p-4">
+                    <p className="text-sm font-bold text-gray-500 mb-1">Danh hiệu</p>
+                    <p className="text-xl font-bold text-blue-600">{gradeData.title || "Chưa có"}</p>
                 </div>
-
-                <div className="bg-white p-6 rounded-xl shadow-sm border-l-4 border-purple-500">
-                    <div className="flex items-center justify-between">
-                        <div>
-                            <p className="text-sm text-gray-500 uppercase font-bold">Số môn học</p>
-                            <h3 className="text-2xl font-black text-purple-600">{gradeData.subjects?.length || 0}</h3>
-                        </div>
-                        <FaBook className="text-3xl text-purple-200" />
-                    </div>
+                <div className="bg-white border border-gray-200 rounded-lg p-4">
+                    <p className="text-sm font-bold text-gray-500 mb-1">Số môn học</p>
+                    <p className="text-xl font-bold text-blue-600">{gradeData.subjects?.length || 0}</p>
                 </div>
             </div>
 
-            {/* Bảng điểm chi tiết */}
-            <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
-                <table className="w-full text-left border-collapse">
-                    <thead>
-                        <tr className="bg-gray-800 text-white">
-                            <th className="p-4 font-semibold uppercase text-sm">Môn học</th>
-                            <th className="p-4 font-semibold uppercase text-sm text-center">Đánh giá thường xuyên</th>
-                            <th className="p-4 font-semibold uppercase text-sm text-center">Giữa kỳ</th>
-                            <th className="p-4 font-semibold uppercase text-sm text-center">Cuối kỳ</th>
-                            <th className="p-4 font-semibold uppercase text-sm text-center bg-blue-700">TBM</th>
+            {/* Bảng điểm */}
+            <table className="w-full table-fixed border-collapse border border-gray-300 shadow-sm rounded-lg overflow-hidden">
+                <thead className="bg-blue-600 text-white">
+                    <tr>
+                        <th className="border p-3 text-left w-[25%] font-bold text-base">Môn học</th>
+                        <th className="border p-3 text-center w-[30%] font-bold text-base">Đánh giá thường xuyên</th>
+                        <th className="border p-3 text-center w-[15%] font-bold text-base">Giữa kỳ</th>
+                        <th className="border p-3 text-center w-[15%] font-bold text-base">Cuối kỳ</th>
+                        <th className="border p-3 text-center w-[15%] font-bold text-base">TBM</th>
+                    </tr>
+                </thead>
+                <tbody className="text-base">
+                    {gradeData.subjects.map((subject) => (
+                        <tr key={subject.subjectId} className="hover:bg-blue-50/50 transition">
+                            <td className="border p-3 font-bold text-gray-800">{subject.subjectName}</td>
+                            <td className="border p-3">
+                                <div className="flex justify-center gap-2">
+                                    {subject.gradeConfigs.find(c => c.scoreType === 'thuong_xuyen')?.scores.map((s, idx) => (
+                                        <span key={idx} className="bg-gray-100 text-gray-700 px-2 py-1 rounded text-sm font-bold border border-gray-200">
+                                            {s !== null ? s : '-'}
+                                        </span>
+                                    )) || <span className="text-gray-400">-</span>}
+                                </div>
+                            </td>
+                            <td className="border p-3 text-center font-bold text-gray-700">
+                                {subject.gradeConfigs.find(c => c.scoreType === 'giua_ky')?.scores[0] ?? '-'}
+                            </td>
+                            <td className="border p-3 text-center font-bold text-gray-700">
+                                {subject.gradeConfigs.find(c => c.scoreType === 'cuoi_ky')?.scores[0] ?? '-'}
+                            </td>
+                            <td className="border p-3 text-center font-bold text-blue-600">
+                                {subject.semesterAverage?.toFixed(1) || "-"}
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody className="divide-y divide-gray-100">
-                        {gradeData.subjects.map((subject) => (
-                            <tr key={subject.subjectId} className="hover:bg-blue-50 transition-colors">
-                                <td className="p-4 font-bold text-gray-700 uppercase tracking-tight">
-                                    {subject.subjectName}
-                                </td>
-                                <td className="p-4">
-                                    <div className="flex justify-center gap-2">
-                                        {subject.gradeConfigs.find(c => c.scoreType === 'thuong_xuyen')?.scores.map((s, idx) => (
-                                            <span key={idx} className="bg-gray-100 text-gray-700 px-2 py-1 rounded text-sm font-medium border border-gray-200">
-                                                {s !== null ? s : '-'}
-                                            </span>
-                                        )) || <span className="text-gray-400">-</span>}
-                                    </div>
-                                </td>
-                                <td className="p-4 text-center font-semibold text-gray-600">
-                                    {subject.gradeConfigs.find(c => c.scoreType === 'giua_ky')?.scores[0] ?? '-'}
-                                </td>
-                                <td className="p-4 text-center font-semibold text-gray-600">
-                                    {subject.gradeConfigs.find(c => c.scoreType === 'cuoi_ky')?.scores[0] ?? '-'}
-                                </td>
-                                <td className="p-4 text-center">
-                                    <span className="inline-block w-12 py-1 rounded-full bg-blue-100 text-blue-800 font-bold">
-                                        {subject.semesterAverage?.toFixed(1) || "-"}
-                                    </span>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
+                    ))}
+                </tbody>
+            </table>
 
-            <div className="mt-8 p-4 bg-blue-50 rounded-lg border border-blue-100">
-                <p className="text-sm text-blue-700 leading-relaxed">
-                    <strong>Ghi chú:</strong> Điểm trung bình môn (TBM) được tính theo trọng số: Thường xuyên (x1), Giữa kỳ (x2), Cuối kỳ (x3). 
+            {/* Ghi chú */}
+            <div className="mt-4 p-3 bg-blue-50 rounded border border-blue-100">
+                <p className="text-sm text-blue-700">
+                    <strong>Ghi chú:</strong> Điểm trung bình môn (TBM) được tính theo trọng số: Thường xuyên (x1), Giữa kỳ (x2), Cuối kỳ (x3).
                     Mọi thắc mắc về điểm số vui lòng liên hệ trực tiếp giáo viên bộ môn.
                 </p>
             </div>

@@ -99,7 +99,7 @@ export default function AssignTeacher() {
     return (
         <div className="p-4 relative bg-gray-50 min-h-screen">
             <h2 className="text-2xl font-bold mb-6 text-center text-blue-800 uppercase tracking-wider">
-                Điều phối dạy thay đột xuất
+                Phân công dạy thay
             </h2>
 
             <div className="flex gap-4 items-center">

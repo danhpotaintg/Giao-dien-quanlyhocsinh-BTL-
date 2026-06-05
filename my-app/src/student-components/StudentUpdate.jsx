@@ -90,7 +90,7 @@ export default function StudentUpdate() {
 
   return (
     <div className="max-w-2xl mx-auto mt-10 p-6 bg-white rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold mb-6 text-gray-800 border-b pb-2">Cập nhật thông tin cá nhân</h2>
+      <h2 className="text-2xl font-bold mb-6 text-gray-800 border-b pb-2">Thông tin cá nhân</h2>
 
       {message.text && (
         <div className={`mb-4 p-3 rounded ${message.type === 'success' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>

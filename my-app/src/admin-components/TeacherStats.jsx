@@ -48,7 +48,7 @@ const TeacherStats = () => {
 
     return (
         <div className="p-6 bg-white rounded shadow">
-            <h2 className="text-2xl font-bold mb-6">Thống kê Giáo viên</h2>
+            <h2 className="text-2xl font-bold mb-6">Thống kê số tiết dạy của Giáo viên</h2>
             
             <div className="flex gap-4 mb-6">
                 <div>

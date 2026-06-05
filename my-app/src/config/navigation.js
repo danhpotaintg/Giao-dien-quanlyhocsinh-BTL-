@@ -36,9 +36,8 @@ export const MENU_CONFIG = {
     {
       title: 'Thông tin tài khoản',
       children: [
-        { title: 'Xem thông tin cá nhân', path: '/profile/teacher-info' },
         { title: 'Cập nhật ảnh đại diện', path: '/profile/avatar' },
-        { title: 'Cập nhật thông tin', path: '/profile/teacher-update' },
+        { title: 'Thông tin cá nhân', path: '/profile/teacher-update' },
       ]
     },
     {
@@ -58,9 +57,8 @@ export const MENU_CONFIG = {
     {
       title: 'Thông tin tài khoản',
       children: [
-        { title: 'Xem thông tin cá nhân', path: '/profile/student-info' },
         { title: 'Cập nhật ảnh đại diện', path: '/profile/avatar' },
-        { title: 'Cập nhật thông tin', path: '/profile/student-update' },
+        { title: 'Thông tin cá nhân', path: '/profile/student-update' },
       ]
     },
     {

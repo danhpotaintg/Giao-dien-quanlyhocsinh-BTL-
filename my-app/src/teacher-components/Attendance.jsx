@@ -53,7 +53,7 @@ export default function Attendance(){
                 ))}
             </select>
 
-            <table className="w-full border-collapse border border-gray-300">
+            <table className="w-full table-fixed border-collapse border border-gray-300 shadow-sm rounded-lg overflow-hidden">
                 <thead className="bg-blue-600 text-white">
                     <tr>
                         <th className="border p-2">Tên lớp</th>

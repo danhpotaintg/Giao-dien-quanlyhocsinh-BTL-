@@ -65,7 +65,7 @@ export default function CreateNotification() {
         toStudents,
         toTeachers,
         targetClassId: classId ? classId : null, 
-  targetTeacherId: teacherId ? teacherId : null
+        targetTeacherId: teacherId ? teacherId : null
       };
 
       const response = await fetch('http://localhost:8080/quanly/notifications/admin', {

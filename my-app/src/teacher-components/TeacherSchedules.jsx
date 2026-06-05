@@ -75,7 +75,7 @@ export default function TeacherSchedule(){
                 
 
             <div className="overflow-x-auto shadow-lg rounded-lg">
-                <table className="w-full border-collapse border border-gray-300 bg-white">
+                <table className="w-full border-collapse border border-gray-300 shadow-sm rounded-lg overflow-hidden">
                     <thead className="bg-blue-600 text-white">
                         <tr>
                             <th className="border p-2 w-20">Tiết</th>

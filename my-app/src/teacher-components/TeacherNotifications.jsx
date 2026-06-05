@@ -42,7 +42,7 @@ export default function TeacherNotifications() {
         <div className="p-6 max-w-2xl mx-auto">
             <div className="bg-white rounded shadow border border-gray-200">
                 {/* Header đơn giản */}
-                <div className="bg-[#1e40af] p-4 text-center">
+                <div className="bg-blue-600 p-4 text-center">
                     <h2 className="text-white font-bold text-lg uppercase">
                         Gửi thông báo tới lớp chủ nhiệm
                     </h2>
@@ -63,13 +63,13 @@ export default function TeacherNotifications() {
 
                     {/* Tiêu đề */}
                     <div>
-                        <label className="block text-sm font-semibold text-gray-700 mb-1">
+                        <label className="block text-base font-semibold text-gray-700 mb-1">
                             Tiêu đề
                         </label>
                         <input 
                             required
                             type="text"
-                            className="w-full border border-gray-300 p-2.5 rounded focus:outline-none focus:border-blue-600"
+                            className="w-full border border-gray-300 p-2.5 rounded focus:outline-none focus:border-blue-600 text-base"
                             placeholder="Nhập tiêu đề..."
                             value={title}
                             onChange={e => setTitle(e.target.value)}
@@ -78,13 +78,13 @@ export default function TeacherNotifications() {
 
                     {/* Nội dung */}
                     <div>
-                        <label className="block text-sm font-semibold text-gray-700 mb-1">
+                        <label className="block text-base font-semibold text-gray-700 mb-1">
                             Nội dung
                         </label>
                         <textarea 
                             required
                             rows="10"
-                            className="w-full border border-gray-300 p-2.5 rounded focus:outline-none focus:border-blue-600 resize-none"
+                            className="w-full border border-gray-300 p-2.5 rounded focus:outline-none focus:border-blue-600 resize-none text-base"
                             placeholder="Nhập nội dung thông báo..."
                             value={content}
                             onChange={e => setContent(e.target.value)}
@@ -94,7 +94,7 @@ export default function TeacherNotifications() {
                     {/* Button */}
                     <button 
                         disabled={loading}
-                        className="w-full bg-[#1e40af] hover:bg-blue-800 text-white font-bold py-3 mt-2 rounded transition-colors disabled:bg-gray-400"
+                        className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 mt-2 rounded transition-colors disabled:bg-gray-400"
                     >
                         {loading ? "Đang gửi..." : "Gửi thông báo"}
                     </button>

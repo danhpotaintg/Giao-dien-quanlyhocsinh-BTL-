@@ -97,7 +97,7 @@ function App() {
              <Route path="admin/stats/grade-ranking" element={<GradeRanking />} />
              <Route path="admin/notifications" element={<CreateNotification />} /> 
 
-             <Route path="profile/student-info" element={<StudentInfo />} /> 
+
              <Route path="profile/student-update" element={<StudentUpdate />} />
              <Route path="student/grades" element={<StudentSubjectList />} />
              <Route path="student/grade/:subjectId/:semester/:academicYear" element={<StudentGrade />} />
@@ -105,7 +105,6 @@ function App() {
              <Route path="student/leave-request" element={<CreateLeaveRequest />} />
              <Route path="student/allgrade/:semester/:academicYear" element={<StudentAllGrade />} />
 
-             <Route path="profile/teacher-info" element={<TeacherInfo />} /> 
              <Route path="profile/teacher-update" element={<TeacherUpdate />} />
              <Route path="profile/avatar" element={<TeacherUploadAvatar/>} />
              <Route path="teacher/attendance" element={<Attendance />} /> 

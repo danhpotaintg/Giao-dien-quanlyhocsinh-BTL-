@@ -123,13 +123,15 @@ const GradeStats = () => {
                         <thead>
                             <tr className="bg-blue-600 text-white">
                                 <th className="border p-3 text-center w-16">STT</th>
-                                <th className="border p-3 text-left">Họ và Tên</th>
+                                <th className="border p-3 text-center">Họ và Tên</th>
                                 <th className="border p-3 text-center">Lớp</th>
                                 
                                 {/* Tự động sinh tiêu đề cột điểm từ cấu hình điểm (gradeConfigs) */}
                                 {gradeData.gradeConfigs.map(config => (
                                     <th key={config.id} className="border p-3 text-center capitalize">
-                                        {config.scoreType.replace(/_/g, ' ')}
+                                        {config.scoreType === 'thuong_xuyen' ? 'Điểm thường xuyên' : 
+                                        config.scoreType === 'giua_ky' ? 'Giữa kỳ' : 
+                                        config.scoreType === 'cuoi_ky' ? 'Cuối kỳ' : config.scoreType}
                                     </th>
                                 ))}
                                 
@@ -140,13 +142,13 @@ const GradeStats = () => {
                             {gradeData.students.map((st, idx) => (
                                 <tr key={st.studentId} className="hover:bg-gray-50 border-b">
                                     {/* STT */}
-                                    <td className="border p-3 text-center font-bold text-gray-700">{idx + 1}</td>
+                                    <td className="border p-3 text-center font-bold ">{idx + 1}</td>
                                     
                                     {/* Tên học sinh */}
-                                    <td className="border p-3 font-medium">{st.studentName}</td>
+                                    <td className="border p-3 text-center font-bold">{st.studentName}</td>
                                     
                                     {/* Lớp (API ClassGradeSheetResponse trả về className chung cho toàn bảng) */}
-                                    <td className="border p-3 text-center text-gray-600">{gradeData.className}</td>
+                                    <td className="border p-3 text-center font-bold">{gradeData.className}</td>
                                     
                                     {/* Render điểm thành phần dựa trên số đầu điểm tối đa (maxEntries) */}
                                     {gradeData.gradeConfigs.map(config => (

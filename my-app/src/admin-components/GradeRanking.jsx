@@ -110,13 +110,15 @@ const GradeRanking = () => {
                         <thead>
                             <tr className="bg-blue-600 text-white">
                                 <th className="border p-3 text-center w-16">STT</th>
-                                <th className="border p-3 text-left">Họ và Tên</th>
+                                <th className="border p-3 text-center">Họ và Tên</th>
                                 <th className="border p-3 text-center">Lớp</th>
                                 
-                                {/* Tự động sinh ra các cột điểm */}
-                                {scoreHeaders.map((headerName, index) => (
-                                    <th key={index} className="border p-3 text-center capitalize">
-                                        {headerName.replace(/_/g, ' ')}
+                               
+                                {rankingData[0]?.gradeConfigs.map(config => (
+                                    <th key={config.gradeConfigId} className="border p-3 text-center capitalize">
+                                        {config.scoreType === 'thuong_xuyen' ? 'Điểm thường xuyên' : 
+                                        config.scoreType === 'giua_ky' ? 'Giữa kỳ' : 
+                                        config.scoreType === 'cuoi_ky' ? 'Cuối kỳ' : config.scoreType}
                                     </th>
                                 ))}
 
@@ -127,15 +129,14 @@ const GradeRanking = () => {
                             {rankingData.map((hs, idx) => (
                                 <tr key={idx} className="hover:bg-gray-50 border-b">
                                     {/* STT */}
-                                    <td className="border p-3 text-center font-bold text-gray-700">{idx + 1}</td>
+                                    <td className="border p-3 text-center font-bold ">{idx + 1}</td>
                                     
                                     {/* Tên Học sinh */}
-                                    <td className="border p-3 font-medium">
+                                    <td className="border p-3 text-center font-bold">
                                         {hs.studentName}
                                     </td>
 
-                                    {/* [THÊM MỚI]: Hiển thị Lớp */}
-                                    <td className="border p-3 text-center text-gray-600">
+                                    <td className="border p-3 text-center font-bold ">
                                         {hs.className}
                                     </td>
                                     
