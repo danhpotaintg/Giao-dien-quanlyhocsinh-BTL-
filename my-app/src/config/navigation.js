@@ -17,7 +17,7 @@ export const MENU_CONFIG = {
         { title: 'Sắp xếp lớp học cho học sinh', path: '/admin/classes/assign-student' },
         { title: 'Sắp xếp TKB', path: '/admin/classes/schedule' },
         { title: 'Phân công giáo viên chủ nhiệm', path: '/admin/classes/assign-teacher-class' },
-        { title: 'Phân công giảng dạy', path: '/admin/classes/assign-teacher' },
+        { title: 'Phân công dạy thay', path: '/admin/classes/assign-teacher' },
       ]
     },
     {
@@ -29,7 +29,6 @@ export const MENU_CONFIG = {
         
       ]
     },
-    { title: 'Phê duyệt đơn', path: '/admin/approvals' },
     { title: 'Gửi thông báo chung', path: '/admin/notifications' } // Đã thêm phần này
   ],
   
