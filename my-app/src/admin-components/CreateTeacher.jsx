@@ -65,7 +65,7 @@ export default function CreateTeacher() {
       const token = localStorage.getItem("token");
 
       await axios.post(
-        "http://localhost:8080/quanly/teachers", // Đã thêm full URL để tránh lỗi mạng
+        "/quanly/teachers", // Đã thêm full URL để tránh lỗi mạng
         {
           fullName: formData.fullName,
           dob: formData.dob,
@@ -121,7 +121,7 @@ export default function CreateTeacher() {
       data.append("file", selectedFile);
 
       const response = await axios.post(
-        "http://localhost:8080/quanly/teachers/import/preview",
+        "/quanly/teachers/import/preview",
         data,
         {
           headers: {
@@ -151,7 +151,7 @@ export default function CreateTeacher() {
       data.append("file", selectedFile);
 
       const response = await axios.post(
-        "http://localhost:8080/quanly/teachers/import/confirm",
+        "/quanly/teachers/import/confirm",
         data,
         {
           headers: {

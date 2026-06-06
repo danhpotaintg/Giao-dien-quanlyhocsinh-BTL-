@@ -19,7 +19,7 @@ export default function CreateSchedules(){
             endLesson: 2,
             dayOfWeek: 2,
             semester: 1,
-            academicYear: 2024
+            academicYear: 2025
     });
 
     const handleChange = (event) => {
@@ -116,7 +116,7 @@ export default function CreateSchedules(){
                 endLesson: 2,
                 dayOfWeek: 2,
                 semester: 1,
-                academicYear: 2024
+                academicYear: 2025
             });
         }catch(eror){
             setErr(err.response?.data?.message || "Tạo lịch không thành công");

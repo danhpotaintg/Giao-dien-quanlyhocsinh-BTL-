@@ -13,7 +13,8 @@ export const MENU_CONFIG = {
     {
       title: 'Quản lý lớp học',
       children: [
-        { title: 'Tạo lớp học', path: '/admin/classes/create' },
+        { title: 'Tạo lớp học và môn học', path: '/admin/classes/create' },
+        { title: 'Tạo đầu điểm cho môn học', path: '/admin/create/grade-config' },
         { title: 'Sắp xếp lớp học cho học sinh', path: '/admin/classes/assign-student' },
         { title: 'Sắp xếp TKB', path: '/admin/classes/schedule' },
         { title: 'Phân công giáo viên chủ nhiệm', path: '/admin/classes/assign-teacher-class' },

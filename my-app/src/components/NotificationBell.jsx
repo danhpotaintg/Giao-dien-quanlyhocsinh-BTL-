@@ -11,7 +11,7 @@ export default function NotificationBell() {
     const fetchNotifications = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await fetch('http://localhost:8080/quanly/notifications/my-notifications', {
+        const response = await fetch('/quanly/notifications/my-notifications', {
           headers: {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json'

@@ -8,7 +8,7 @@ export default function TeacherNotifications() {
     const [message, setMessage] = useState('');
     const [error, setError] = useState('');
 
-    const BASE_URL = 'http://localhost:8080/quanly/notifications';
+    const BASE_URL = '/quanly/notifications';
 
     const handleSend = async (e) => {
         e.preventDefault();

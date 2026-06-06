@@ -68,7 +68,7 @@ export default function CreateNotification() {
         targetTeacherId: teacherId ? teacherId : null
       };
 
-      const response = await fetch('http://localhost:8080/quanly/notifications/admin', {
+      const response = await fetch('/quanly/notifications/admin', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`,

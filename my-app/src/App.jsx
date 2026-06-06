@@ -43,7 +43,7 @@ import AssignTeacher from "./admin-components/AssignTeacher";
 import TeacherNotifications from './teacher-components/TeacherNotifications';
 import GradeImport from './teacher-components/GradeImportExcel';
 import ClassList from './teacher-components/ClassList';
-
+import CreateGradeConfig from "./admin-components/CreateGradeConfig";
 
 function App() {
   const [role, setRole] = useState(() => localStorage.getItem('role') || null);
@@ -87,6 +87,7 @@ function App() {
             
 
              <Route path="admin/classes/assign-student" element={<StudentClass />} /> 
+             <Route path="admin/create/grade-config" element={<CreateGradeConfig />} />
              <Route path="admin/classes/assign-teacher-class" element={<HomeroomTeacherClass />} /> 
              <Route path="admin/classes/schedule" element={<ScheduleDetails />} /> 
              <Route path="admin/classes/schedule/:teacherId/:classId/:subjectName" element={<CreateSchedules />} /> 

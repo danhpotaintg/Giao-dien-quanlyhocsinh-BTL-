@@ -27,6 +27,7 @@ export default function StudentList() {
                 });
                 setSubjectId(res.data.result.id);
             } catch (error) {
+                console.log("Lỗi:" + error);
                 setErr("Không thể tải môn dạy của giáo viên");
             }
         };
@@ -37,9 +38,8 @@ export default function StudentList() {
         if (!subjectId) return;
         try {
             const token = localStorage.getItem('token');
-            const res = await axios.get(`/quanly/statistics/class/${classId}/subject/${subjectId}`, {
+            const res = await axios.get(`/quanly/grades/class/${classId}/subject/${subjectId}?academicYear=${selectedYear}&semester=${semester}`, {
                 headers: { Authorization: `Bearer ${token}` },
-                params: { academicYear: selectedYear, semester: semester } 
             });
             setGradeData(res.data.result);
             setErr("");
@@ -100,7 +100,11 @@ export default function StudentList() {
                             <th className="border p-3">STT</th>
                             <th className="border p-3">Họ và Tên</th>
                             {gradeData.gradeConfigs.map(config => (
-                                <th key={config.id} className="border p-3">{config.scoreType}</th>
+                                <th key={config.id} className="border p-3 text-center capitalize">
+                                    {config.scoreType === 'thuong_xuyen' ? 'Điểm thường xuyên' : 
+                                    config.scoreType === 'giua_ky' ? 'Giữa kỳ' : 
+                                    config.scoreType === 'cuoi_ky' ? 'Cuối kỳ' : config.scoreType}
+                                </th>
                             ))}
                             <th className="border p-3">ĐTB</th>
                             <th className="border p-3">Nhập điểm</th>
