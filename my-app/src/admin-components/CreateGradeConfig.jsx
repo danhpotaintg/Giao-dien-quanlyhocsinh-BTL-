@@ -174,7 +174,7 @@ export default function CreateGradeConfig() {
                         {success && <div className="bg-green-50 text-green-700 p-3 rounded border border-green-200 text-base font-semibold">{success}</div>}
 
                         {/* Header cột */}
-                        <div className="grid grid-cols-[2fr_1fr_1fr_1fr_1fr_auto] gap-2 px-1">
+                        <div className="grid grid-cols-[2fr_1fr_1fr_1fr_1fr_32px] gap-2 px-1 mb-1">
                             <span className="text-sm font-bold text-gray-600">Loại điểm</span>
                             <span className="text-sm font-bold text-gray-600 text-center">Hệ số</span>
                             <span className="text-sm font-bold text-gray-600 text-center">Số cột điểm</span>
@@ -185,52 +185,61 @@ export default function CreateGradeConfig() {
 
                         {/* Các dòng config */}
                         <div className="space-y-2">
-                            {configs.map((cfg, index) => (
-                                <div key={index} className="grid grid-cols-[2fr_1fr_1fr_1fr_1fr_auto] gap-2 items-center">
-                                    <select
-                                        value={cfg.scoreType}
-                                        onChange={e => handleConfigChange(index, 'scoreType', e.target.value)}
-                                        className="border border-gray-300 p-2 rounded focus:outline-none focus:border-blue-600 text-base bg-white"
-                                    >
-                                        {SCORE_TYPES.map(t => (
-                                            <option key={t.value} value={t.value}>{t.label}</option>
-                                        ))}
-                                    </select>
-                                    <input
-                                        type="number" min="1" max="5"
-                                        value={cfg.weight}
-                                        onChange={e => handleConfigChange(index, 'weight', Number(e.target.value))}
-                                        className="border border-gray-300 p-2 rounded focus:outline-none focus:border-blue-600 text-base text-center"
-                                    />
-                                    <input
-                                        type="number" min="1" max="10"
-                                        value={cfg.maxEntries}
-                                        onChange={e => handleConfigChange(index, 'maxEntries', Number(e.target.value))}
-                                        className="border border-gray-300 p-2 rounded focus:outline-none focus:border-blue-600 text-base text-center"
-                                    />
-                                    <select
-                                        value={cfg.semester}
-                                        onChange={e => handleConfigChange(index, 'semester', Number(e.target.value))}
-                                        className="border border-gray-300 p-2 rounded focus:outline-none focus:border-blue-600 text-base bg-white"
-                                    >
-                                        <option value={1}>HK 1</option>
-                                        <option value={2}>HK 2</option>
-                                    </select>
-                                    <input
-                                        type="number"
-                                        value={cfg.academicYear}
-                                        onChange={e => handleConfigChange(index, 'academicYear', Number(e.target.value))}
-                                        className="border border-gray-300 p-2 rounded focus:outline-none focus:border-blue-600 text-base text-center"
-                                    />
-                                    {configs.length > 1 && (
-                                        <button type="button" onClick={() => handleRemoveRow(index)}
-                                            className="text-red-500 hover:text-red-700 font-bold text-lg px-2">
-                                            ✕
-                                        </button>
-                                    )}
-                                    {configs.length === 1 && <span className="w-8" />}
-                                </div>
-                            ))}
+                            {(() => {
+                                const allKeys = configs.map(cfg => `${cfg.semester}_${cfg.scoreType}_${cfg.academicYear}`);
+                                const duplicateKeys = new Set(allKeys.filter((key, i) => allKeys.indexOf(key) !== i));
+
+                                return configs.map((cfg, index) => {
+                                    const key = `${cfg.semester}_${cfg.scoreType}_${cfg.academicYear}`;
+                                    const isDuplicate = duplicateKeys.has(key);
+
+                                    return (
+                                        <div key={index}
+                                            className={`grid grid-cols-[2fr_1fr_1fr_1fr_1fr_32px] gap-2 items-center p-1 rounded ${isDuplicate ? 'bg-red-50 border border-red-300' : ''}`}>
+                                            <select
+                                                value={cfg.scoreType}
+                                                onChange={e => handleConfigChange(index, 'scoreType', e.target.value)}
+                                                className="border border-gray-300 p-2 rounded focus:outline-none focus:border-blue-600 text-sm bg-white w-full"
+                                            >
+                                                {SCORE_TYPES.map(t => (
+                                                    <option key={t.value} value={t.value}>{t.label}</option>
+                                                ))}
+                                            </select>
+                                            <input type="number" min="1" max="5"
+                                                value={cfg.weight}
+                                                onChange={e => handleConfigChange(index, 'weight', Number(e.target.value))}
+                                                className="border border-gray-300 p-2 rounded focus:outline-none focus:border-blue-600 text-sm text-center w-full"
+                                            />
+                                            <input type="number" min="1" max="10"
+                                                value={cfg.maxEntries}
+                                                onChange={e => handleConfigChange(index, 'maxEntries', Number(e.target.value))}
+                                                className="border border-gray-300 p-2 rounded focus:outline-none focus:border-blue-600 text-sm text-center w-full"
+                                            />
+                                            <select
+                                                value={cfg.semester}
+                                                onChange={e => handleConfigChange(index, 'semester', Number(e.target.value))}
+                                                className="border border-gray-300 p-2 rounded focus:outline-none focus:border-blue-600 text-sm bg-white w-full"
+                                            >
+                                                <option value={1}>HK 1</option>
+                                                <option value={2}>HK 2</option>
+                                            </select>
+                                            <input type="number"
+                                                value={cfg.academicYear}
+                                                onChange={e => handleConfigChange(index, 'academicYear', Number(e.target.value))}
+                                                className="border border-gray-300 p-2 rounded focus:outline-none focus:border-blue-600 text-sm text-center w-full"
+                                            />
+                                            <div className="flex justify-center">
+                                                {configs.length > 1 ? (
+                                                    <button type="button" onClick={() => handleRemoveRow(index)}
+                                                        className="text-red-500 hover:text-red-700 font-bold text-lg">
+                                                        ✕
+                                                    </button>
+                                                ) : <span />}
+                                            </div>
+                                        </div>
+                                    );
+                                });
+                            })()}
                         </div>
 
                         <button type="button" onClick={handleAddRow}
