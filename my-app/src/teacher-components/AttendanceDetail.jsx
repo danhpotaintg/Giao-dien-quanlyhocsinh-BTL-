@@ -108,10 +108,15 @@ export default function AttendanceDetail() {
                     </tr>
                 </thead>
                 <tbody className="text-base">  
-                    {stuData.map((user, index) => (
+                    {stuData
+                    .sort((a, b) => {
+                            const getName = (fullName) => fullName.trim().split(' ').pop();
+                            return getName(a.fullName).localeCompare(getName(b.fullName), 'vi');
+                    })
+                    .map((user, index) => (
                         <tr key={user.id} className="hover:bg-blue-50/50 transition">
                             <td className="border p-3 text-center font-bold text-gray-600">{index + 1}</td>
-                            <td className="border p-3 text-center font-bold text-gray-800 truncate">{user.fullName}</td>
+                            <td className="border p-3 pl-20 text-left font-bold text-gray-800 truncate">{user.fullName}</td>
                             <td className="border p-3 text-center font-bold text-gray-600">{user.dob}</td>
                             <td className="border p-3 text-center font-bold text-gray-600">{gender[user.gender]}</td>
                             <td className="border p-3 text-center font-bold text-gray-600">{user.parentPhonenumber}</td>

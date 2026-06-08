@@ -6,16 +6,37 @@ export default function StudentSchedule(){
     const [schedules, setSchedules] = useState([]);
     const [loading, setLoading] = useState(true);
     
+    const [data, setData] = useState();
+        useEffect(() => {
+            
+            const fetchInfo = async() => {
+                try{const token = localStorage.getItem('token');
+                
+                const response = await axios.get('/quanly/students/my-info',{
+                    headers: { Authorization: `Bearer ${token}` }
+                });
+                setData(response.data.result);
+    
+                }catch(err){
+                    const backendMessage = err.response?.data?.message;
+                    setErr(backendMessage || 'Không thể tải dữ liệu cá nhân!');
+                }
+        
+            }
+    
+        fetchInfo();
+    },[]);
 
     const days = [2, 3, 4, 5, 6, 7]; 
     const lessons = Array.from({ length: 12 }, (_, i) => i + 1); // Tiết 1 đến 12
 
     const [semester, setSemester] = useState(1);
-    const [selectedYear, setSelectedYear] = useState(2025);
+    const [selectedYear, setSelectedYear] = useState(data?.classRoom?.academicYear);
 
     const getAvailableYears = () => {
-        const base = parseInt(2025);
-        return [base, base + 1, base + 2, base + 3, base + 4];
+        const base = parseInt(data?.classRoom?.academicYear);
+        if(!base) return [];
+        return [base, base + 1, base + 2];
     };
 
     useEffect(() => {

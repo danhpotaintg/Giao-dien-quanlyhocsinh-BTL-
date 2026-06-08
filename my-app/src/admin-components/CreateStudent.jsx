@@ -247,6 +247,11 @@ export default function CreateStudent() {
                         </button>
                     </div>
 
+                    <div className="mb-4 p-3 bg-blue-50 rounded text-sm text-blue-700">
+                        <p className="font-medium mb-1">Format file Excel:</p>
+                        <p>Cột A: Họ và tên | Cột B: Ngày sinh | Cột C: Email phụ huynh | Cột D: Số điện thoại | Cột E: Giới tính | Cột F: Niên khoá | Cột G: Tên lớp</p>
+                    </div>
+
                     {previewData.length > 0 && (
                         <>
                             <div className="overflow-x-auto">

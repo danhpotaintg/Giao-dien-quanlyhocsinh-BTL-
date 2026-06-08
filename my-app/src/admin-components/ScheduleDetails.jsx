@@ -70,7 +70,7 @@ export default function ScheduleDetails(){
                                     <option value="">Chọn lớp</option>
                                     {classes.map(cls => (
                                         <option key={cls.id} value={cls.id}>
-                                            {cls.className}
+                                            {cls.className}-{cls.academicYear}
                                         </option>   
                                     ))}
                                 </select>

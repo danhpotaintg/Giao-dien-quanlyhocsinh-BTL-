@@ -27,7 +27,7 @@ export default function StudentInfo(){
         }
 
         fetchInfo();
-},[]);
+    },[]);
 
     if (error) return <p style={{ color: "red" }}>{error}</p>;
     if (!data) return <p>Không có dữ liệu!</p>;

@@ -6,7 +6,7 @@ export default function Attendance(){
     const [stucData, setStuData] = useState([]);
     const [classData, setClassData] = useState([]);
     const [err, setErr] = useState("")
-
+    const [semester, setSemester] = useState(1);
     const [selectedYear, setSelectedYear] = useState(2025);
     
     const getAvailableYears = () => {
@@ -17,7 +17,7 @@ export default function Attendance(){
     const fetchClassData = async() => {
         try{
             const token = localStorage.getItem('token');
-            const response = await axios.get(`/quanly/schedules/teacher-classes/${selectedYear}`,{
+            const response = await axios.get(`/quanly/schedules/teacher-classes/${selectedYear}/${semester}`,{
                 headers: {Authorization: `Bearer ${token}`}
             });
 
@@ -31,7 +31,7 @@ export default function Attendance(){
 
     useEffect(() => {
         fetchClassData();
-    }, [selectedYear]);
+    }, [semester, selectedYear]);
 
     
 
@@ -42,16 +42,32 @@ export default function Attendance(){
             {err && <p style={{ color: 'red' }}>{err}</p>}
             
             <h2 className="text-2xl font-bold mb-4 text-blue-600">Danh sách lớp giảng dạy</h2>
-            <label className="mr-2 font-bold">Năm học:</label>
-            <select 
-                value={selectedYear} 
-                onChange={(e) => setSelectedYear(e.target.value)} 
-                className="p-2 border rounded"
-            >
-                {getAvailableYears().map(year => (
-                    <option key={year} value={year}>{year}</option>
-                ))}
-            </select>
+            <div className="flex gap-4 items-center">
+                <div>
+                    <label className="mr-2 font-bold">Học kỳ:</label>
+                    <select 
+                        value={semester} 
+                        onChange={(e) => setSemester(Number(e.target.value))} 
+                        className="p-2 border rounded"
+                    >
+                        <option value={1}>Học kỳ 1</option>
+                        <option value={2}>Học kỳ 2</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label className="mr-2 font-bold">Năm học:</label>
+                    <select 
+                        value={selectedYear} 
+                        onChange={(e) => setSelectedYear(e.target.value)} 
+                        className="p-2 border rounded"
+                    >
+                        {getAvailableYears().map(year => (
+                            <option key={year} value={year}>{year}</option>
+                        ))}
+                    </select>
+                </div>
+            </div>
 
             <table className="w-full table-fixed border-collapse border border-gray-300 shadow-sm rounded-lg overflow-hidden">
                 <thead className="bg-blue-600 text-white">

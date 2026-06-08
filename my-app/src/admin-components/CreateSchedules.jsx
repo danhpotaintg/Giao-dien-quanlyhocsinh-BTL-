@@ -4,13 +4,40 @@ import { useParams, Link } from 'react-router-dom';
 
 export default function CreateSchedules(){
     const [semester, setSemester] = useState(1);
-    const [selectedYear, setSelectedYear] = useState(2025);
+    
+    const [subjectData, setSubjectData] = useState([]);
+
+    const {teacherId, classId, subjectName} = useParams();
+
+    const [classInfo, setClassInfo] = useState("");
+
+
+    useEffect(() => {
+        const fetchAcademicYear = async() => {
+            try {
+                const token = localStorage.getItem('token');
+                const res = await axios.get(`/quanly/classes/class-info/${classId}`, {
+                    headers: { Authorization: `Bearer ${token}` }
+                });
+                setClassInfo(res.data.result);
+                setSelectedYear(res.data.result.academicYear);
+                setFormData(prev => ({ ...prev, academicYear: res.data.result.academicYear }));
+            } catch(err) {
+                setErr(err.response?.data?.message || "Không thể lấy thông tin lớp học!");
+                setTimeout(() => setErr(""), 3000);
+            }
+        };
+        fetchAcademicYear(); 
+    }, [classId]);
+
+    const [selectedYear, setSelectedYear] = useState('');
 
     const getAvailableYears = () => {
-        const base = parseInt(2025);
-        return [base, base + 1, base + 2, base + 3, base + 4];
+        const base = parseInt(classInfo?.academicYear);
+        if(!base) return [];
+        return [base, base + 1, base + 2];
     };
-
+    
     const [formData, setFormData] = useState({
             classId: "",
             subjectName: "",
@@ -19,7 +46,7 @@ export default function CreateSchedules(){
             endLesson: 2,
             dayOfWeek: 2,
             semester: 1,
-            academicYear: 2025
+            academicYear: classInfo?.academicYear
     });
 
     const handleChange = (event) => {
@@ -27,9 +54,7 @@ export default function CreateSchedules(){
         setFormData((prev) => ({ ...prev, [name]: value }));
     };
     
-    const [subjectData, setSubjectData] = useState([]);
-
-    const {teacherId, classId, subjectName} = useParams();
+  
     
     const [schedules, setSchedules] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -116,9 +141,9 @@ export default function CreateSchedules(){
                 endLesson: 2,
                 dayOfWeek: 2,
                 semester: 1,
-                academicYear: 2025
+                academicYear: selectedYear
             });
-        }catch(eror){
+        }catch(err){
             setErr(err.response?.data?.message || "Tạo lịch không thành công");
             setTimeout(() => setErr(''), 5000);
         }

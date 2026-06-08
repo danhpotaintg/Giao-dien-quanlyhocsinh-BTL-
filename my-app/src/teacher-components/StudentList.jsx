@@ -83,7 +83,7 @@ export default function StudentList() {
                         </select>
                     </div>
                     <button
-                        onClick={() => navigate(`/teacher/grade-import/${classId}/${className}`)}
+                        onClick={() => navigate(`/teacher/grade-import/${classId}/${className}/${semester}/${academicYear}`)}
                         className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
                     >
                         Import điểm từ Excel
@@ -111,7 +111,12 @@ export default function StudentList() {
                         </tr>
                     </thead>
                     <tbody>
-                        {gradeData.students.map((st, idx) => (
+                        {[...gradeData.students]
+                        .sort((a, b) => {
+                            const getName = (fullName) => fullName.trim().split(' ').pop();
+                            return getName(a.studentName).localeCompare(getName(b.studentName), 'vi');
+                        })
+                        .map((st, idx) => (
                             <tr key={st.studentId} className="border-b">
                                 <td className="p-3 text-center">{idx + 1}</td>
                                 <td className="p-3">{st.studentName}</td>

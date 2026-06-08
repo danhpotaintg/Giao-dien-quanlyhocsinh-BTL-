@@ -9,11 +9,36 @@ export default function StudentSubjectList() {
     const [err, setErr] = useState("");
 
     const [semester, setSemester] = useState(1);
-    const [selectedYear, setSelectedYear] = useState(2025);
+    const [selectedYear, setSelectedYear] = useState('');
+
+    const [classData, setClassData] = useState();
+
+    useEffect(() => {
+        
+        const fetchInfo = async() => {
+            try{const token = localStorage.getItem('token');
+            
+            const response = await axios.get('/quanly/students/my-info',{
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            setClassData(response.data.result);
+            setSelectedYear(response.data.result?.classRoom?.academicYear);
+            }catch(err){
+                const backendMessage = err.response?.data?.message;
+                setErr(backendMessage || 'Không thể tải dữ lớp học!');
+            }
+    
+        }
+
+        fetchInfo();
+    },[]);
+
+    
 
     const getAvailableYears = () => {
-        const base = parseInt(2025);
-        return [base, base + 1, base + 2, base + 3, base + 4];
+        const base = parseInt(classData?.classRoom?.academicYear);
+        if (!base) return [];
+        return [base, base + 1, base + 2];
     };
 
     const [selection, setSelection] = useState({
@@ -38,7 +63,7 @@ export default function StudentSubjectList() {
     };
 
     useEffect(() => {
-        fetchSubjectList();
+        if(selectedYear) fetchSubjectList();
     }, [semester, selectedYear]);
 
 

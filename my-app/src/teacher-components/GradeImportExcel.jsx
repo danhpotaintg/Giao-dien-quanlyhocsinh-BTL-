@@ -12,10 +12,8 @@ export default function GradeImport() {
     const [loading, setLoading] = useState(false);
     const [err, setErr] = useState("");
 
-    const [selection, setSelection] = useState({
-        academicYear: "",
-        semester: ""
-    });
+    const {semester, academicYear} = useParams();
+
 
     // Lấy môn dạy của giáo viên
     useEffect(() => {
@@ -35,17 +33,6 @@ export default function GradeImport() {
         fetchSubject();
     }, []);
 
-    const handleSelectionChange = (e) => {
-        const value = e.target.value;
-        if (value && value !== "-") {
-            const [year, sem] = value.split('-');
-            setSelection({ academicYear: year, semester: sem });
-            setResults([]);
-        } else {
-            setSelection({ academicYear: "", semester: "" });
-            setResults([]);
-        }
-    };
 
     const handleFileChange = (e) => {
         const selected = e.target.files[0];
@@ -62,10 +49,7 @@ export default function GradeImport() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (!selection.academicYear || !selection.semester) {
-            setErr("Vui lòng chọn năm học và học kỳ");
-            return;
-        }
+
         if (!file) {
             setErr("Vui lòng chọn file Excel");
             return;
@@ -80,7 +64,7 @@ export default function GradeImport() {
         try {
             const token = localStorage.getItem('token');
             const res = await axios.post(
-                `/quanly/excel/grades/class/${classId}/subject/${subjectId}/import?semester=${selection.semester}&academicYear=${selection.academicYear}`,
+                `/quanly/excel/grades/class/${classId}/subject/${subjectId}/import?semester=${semester}&academicYear=${academicYear}`,
                 formData,
                 {
                     headers: {
@@ -104,29 +88,14 @@ export default function GradeImport() {
     return (
         <form onSubmit={handleSubmit} className="p-6 bg-white shadow rounded">
             <h2 className="text-xl font-bold mb-4">
-                Import điểm môn {teacherSubject?.subjectName || "..."} - Lớp {className}
+                Import điểm môn {teacherSubject?.subjectName || "..."} - Lớp {className} - Học kì {semester} - Năm học {academicYear}
             </h2>
 
             {err && (
                 <div className="text-red-500 bg-red-50 p-2 rounded mb-4">{err}</div>
             )}
 
-            {/* 1. Chọn năm học và học kỳ */}
-            <div className="mb-4">
-                <label className="block font-medium mb-1">Năm học và học kỳ:</label>
-                <select
-                    className="w-full p-2 border rounded border-gray-300"
-                    onChange={handleSelectionChange}
-                    value={`${selection.academicYear}-${selection.semester}`}
-                >
-                    <option value="-">-- Chọn năm học và học kỳ --</option>
-                    <option value="2024-1">Học kì 1 năm 2024</option>
-                    <option value="2024-2">Học kì 2 năm 2024</option>
-                    <option value="2025-1">Học kì 1 năm 2025</option>
-                    <option value="2025-2">Học kì 2 năm 2025</option>
-                </select>
-            </div>
-
+            
             {/* 2. Chọn file Excel */}
             <div className="mb-4">
                 <label className="block font-medium mb-1">File Excel (.xlsx):</label>

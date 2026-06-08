@@ -279,6 +279,11 @@ export default function CreateTeacher() {
                           </button>
                       </div>
 
+                      <div className="mb-4 p-3 bg-blue-50 rounded text-sm text-blue-700">
+                        <p className="font-medium mb-1">Format file Excel:</p>
+                        <p>Cột A: Họ và tên | Cột B: Ngày sinh | Cột C: Giới tính | Cột D: Email | Cột E: Số điện thoại  | Cột F: Môn dạy</p>
+                      </div>
+
                       {previewData.length > 0 && (
                           <>
                               <div className="overflow-x-auto">
