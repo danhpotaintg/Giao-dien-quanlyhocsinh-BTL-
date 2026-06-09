@@ -109,13 +109,13 @@ export default function CreateClass() {
                             <label className="block text-base font-semibold text-gray-700 mb-1">Tên lớp</label>
                             <input name="className" value={formData.className} onChange={handleChange} required
                                 className="w-full border border-gray-300 p-2.5 rounded focus:outline-none focus:border-blue-600 text-base"
-                                placeholder="VD: 10A1..." />
+                                placeholder="VD: A1..." />
                         </div>
                         <div>
                             <label className="block text-base font-semibold text-gray-700 mb-1">Năm học</label>
                             <input name="academicYear" value={formData.academicYear} onChange={handleChange} required
                                 className="w-full border border-gray-300 p-2.5 rounded focus:outline-none focus:border-blue-600 text-base"
-                                placeholder="VD: 2025..." />
+                                placeholder="VD: 2024..." />
                         </div>
 
                         <button type="submit"

@@ -98,6 +98,9 @@ export default function TeacherSchedule(){
                                                     <span className="text-xs text-gray-600">
                                                         {`Lớp: ${schedule.className}`}
                                                     </span>
+                                                    <span className="text-xs text-gray-500">
+                                                        {`Khóa: ${schedule.classYear}`} {/* 👈 thêm dòng này */}
+                                                    </span>
                                                     <span className="text-[10px] text-gray-400">(Tiết {schedule.startLesson}-{schedule.endLesson})</span>
                                                 </div>
                                             )}

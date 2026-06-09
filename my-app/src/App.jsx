@@ -44,6 +44,7 @@ import TeacherNotifications from './teacher-components/TeacherNotifications';
 import GradeImport from './teacher-components/GradeImportExcel';
 import ClassList from './teacher-components/ClassList';
 import CreateGradeConfig from "./admin-components/CreateGradeConfig";
+import ListClass from "./admin-components/ListClass";
 
 function App() {
   const [role, setRole] = useState(() => localStorage.getItem('role') || null);
@@ -97,7 +98,7 @@ function App() {
              <Route path="admin/stats/grades" element={<GradeStats />} />
              <Route path="admin/stats/grade-ranking" element={<GradeRanking />} />
              <Route path="admin/notifications" element={<CreateNotification />} /> 
-
+             <Route path="admin/class-list" element={<ListClass />} /> 
 
              <Route path="profile/student-update" element={<StudentUpdate />} />
              <Route path="student/grades" element={<StudentSubjectList />} />
