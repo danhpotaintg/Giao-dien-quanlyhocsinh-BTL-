@@ -39,7 +39,7 @@ export default function CreateStudent() {
     try {
       const token = localStorage.getItem("token");
       await axios.post(
-        "http://localhost:8080/quanly/students",
+        "/quanly/students",
         {
           ...formData,
           academicYear: parseInt(formData.academicYear),
@@ -79,7 +79,7 @@ export default function CreateStudent() {
       data.append("file", selectedFile);
 
       const response = await axios.post(
-        "http://localhost:8080/quanly/students/import/preview",
+        "/quanly/students/import/preview",
         data,
         {
           headers: {
@@ -111,7 +111,7 @@ export default function CreateStudent() {
       data.append("mode", mode); 
 
       const response = await axios.post(
-        "http://localhost:8080/quanly/students/import/confirm",
+        "/quanly/students/import/confirm",
         data,
         {
           headers: {
