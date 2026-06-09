@@ -1,9 +1,11 @@
 // src/App.jsx
 import React, { useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+
 import Layout from './components/Layout';
 import Login from './pages/Login';
 import ChangePassword from './pages/ChangePassword';
+import Dashboard from './pages/Dashboard';
 
 import UserList from "./admin-components/ListUser";
 import CreateTeacher from './admin-components/CreateTeacher';
@@ -72,13 +74,7 @@ function App() {
             <Route index element={<Navigate to="/dashboard" replace />} />
             <Route path="change-password" element={<ChangePassword />} />
             
-            {/* Tạo trang Dashboard chung làm ví dụ */}
-            <Route path="dashboard" element={
-              <div className="bg-white p-6 rounded shadow">
-                <h1 className="text-2xl font-bold">Đây là Dashboard của {role.toUpperCase()}</h1>
-                <p className="mt-2 text-gray-600">Hãy thử di chuột vào các menu bên trái.</p>
-              </div>
-            } />
+            <Route path="dashboard" element={<Dashboard />} />
 
              <Route path="admin/users" element={<UserList />} /> 
              <Route path="admin/users/create-teacher" element={<CreateTeacher />} /> 
