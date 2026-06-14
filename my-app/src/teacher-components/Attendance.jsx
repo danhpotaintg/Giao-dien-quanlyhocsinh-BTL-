@@ -7,10 +7,10 @@ export default function Attendance(){
     const [classData, setClassData] = useState([]);
     const [err, setErr] = useState("")
     const [semester, setSemester] = useState(1);
-    const [selectedYear, setSelectedYear] = useState(2025);
+    const [selectedYear, setSelectedYear] = useState(2024);
     
     const getAvailableYears = () => {
-        const base = parseInt(2025);
+        const base = parseInt(2024);
         return [base, base + 1, base + 2, base + 3, base + 4];
     };
 

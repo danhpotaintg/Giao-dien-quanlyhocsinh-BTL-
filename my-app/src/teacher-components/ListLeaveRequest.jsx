@@ -85,7 +85,7 @@ export default function ListLeaveRequest() {
                             <tr key={leave.id} className="hover:bg-gray-50 transition-colors">
                                 <td className="p-4">
                                     <div className="font-bold text-gray-900">{leave.studentName}</div>
-                                    <div className="text-xs text-gray-500 uppercase">Lớp: {leave.className}</div>
+                                    <div className="text-xs text-gray-500 uppercase">Lớp: {leave.className}-{leave.classYear}</div>
                                 </td>
                                 <td className="p-4 text-sm text-gray-700">
                                     <div>Từ: <span className="font-medium">{leave.fromDate}</span></div>

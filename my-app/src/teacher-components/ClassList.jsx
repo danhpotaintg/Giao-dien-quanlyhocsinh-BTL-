@@ -5,11 +5,11 @@ import axios from 'axios';
 export default function ClassList(){
     const [classData, setClassData] = useState([]);
     const [err, setErr] = useState("")
-    const [selectedYear, setSelectedYear] = useState(2025);
+    const [selectedYear, setSelectedYear] = useState(2024);
     const [semester, setSemester] = useState(1);
 
     const getAvailableYears = () => {
-        const base = parseInt(2025);
+        const base = parseInt(2024);
         return [base, base + 1, base + 2, base + 3, base + 4];
     };
 

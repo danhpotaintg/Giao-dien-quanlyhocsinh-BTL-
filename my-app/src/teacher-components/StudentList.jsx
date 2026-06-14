@@ -98,6 +98,7 @@ export default function StudentList() {
                     <thead className="bg-blue-600 text-white">
                         <tr>
                             <th className="border p-3">STT</th>
+                            <th className="border p-3">Mã HS</th>
                             <th className="border p-3">Họ và Tên</th>
                             {gradeData.gradeConfigs.map(config => (
                                 <th key={config.id} className="border p-3 text-center capitalize">
@@ -119,6 +120,7 @@ export default function StudentList() {
                         .map((st, idx) => (
                             <tr key={st.studentId} className="border-b">
                                 <td className="p-3 text-center">{idx + 1}</td>
+                                <td className="p-3 text-center">{st.studentId}</td>
                                 <td className="p-3">{st.studentName}</td>
                                 {gradeData.gradeConfigs.map(config => (
                                     <td key={config.id} className="border p-3">
