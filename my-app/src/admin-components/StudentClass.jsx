@@ -119,7 +119,7 @@ export default function StudentClass() {
                 >
                     <option value="">Chọn lớp</option>
                     {classData.map(data => (
-                        <option key={data.id} value={data.id}>{data.className}</option>
+                        <option key={data.id} value={data.id}>{data.className}-{data.academicYear}</option>
                     ))}
                 </select>
                 <button 

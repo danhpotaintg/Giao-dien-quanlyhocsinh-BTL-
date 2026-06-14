@@ -124,7 +124,7 @@ const TeacherStats = () => {
                                 {scheduleModal.data.length === 0 ? <p className="text-gray-500">Không có lịch dạy.</p> : 
                                     scheduleModal.data.map(s => (
                                         <li key={s.id} className="mb-2">
-                                            <span className="font-semibold">Thứ {s.dayOfWeek}:</span> Tiết {s.startLesson}-{s.endLesson} | Lớp: {s.className} | Môn: {s.subjectName}
+                                            <span className="font-semibold">Thứ {s.dayOfWeek}:</span> Tiết {s.startLesson}-{s.endLesson} | Lớp: {s.className}-{s.classYear} | Môn: {s.subjectName}
                                         </li>
                                     ))
                                 }
