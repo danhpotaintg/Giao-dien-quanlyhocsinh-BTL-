@@ -11,7 +11,26 @@ export default function CreateSchedules(){
 
     const [classInfo, setClassInfo] = useState("");
 
+    const [selectedSchedule, setSelectedSchedule] = useState(null);
+    
+    //xoá lịch
+    const handleDelete = async () => {
+        try {
+            const token = localStorage.getItem('token');
+            await axios.delete(`/quanly/schedules/${selectedSchedule.id}`, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            setSuccess("Xóa lịch thành công");
+            setTimeout(() => setSuccess(''), 3000);
+            setSelectedSchedule(null);
+            fetchSchedule();
+        } catch (err) {
+            setErr(err.response?.data?.message || "Xóa lịch không thành công");
+            setTimeout(() => setErr(''), 3000);
+        }
+    };
 
+    
     useEffect(() => {
         const fetchAcademicYear = async() => {
             try {
@@ -269,13 +288,15 @@ export default function CreateSchedules(){
                                     // Kiểm tra nếu là tiết bắt đầu thì mới render ô (để xử lý merge row nếu cần)
                                     // Ở đây làm đơn giản: hiện nội dung ở mọi tiết thuộc khoảng start-end
                                     return (
-                                        <td key={day} className={`border p-1 text-sm text-center ${schedule ? 'bg-blue-50' : ''}`}>
+                                        <td
+                                            key={day}
+                                            className={`border p-1 text-sm text-center ${schedule ? 'bg-blue-50 cursor-pointer hover:bg-blue-100' : ''}`}
+                                            onClick={() => schedule && setSelectedSchedule(schedule)}
+                                        >
                                             {schedule && (
                                                 <div className="flex flex-col">
-                                                    <span className="font-bold text-blue-700">{ schedule.subjectName}</span>
-                                                    <span className="text-xs text-gray-600">
-                                                        {`GV: ${schedule.teacherName}`}
-                                                    </span>
+                                                    <span className="font-bold text-blue-700">{schedule.subjectName}</span>
+                                                    <span className="text-xs text-gray-600">GV: {schedule.teacherName}</span>
                                                     <span className="text-[10px] text-gray-400">(Tiết {schedule.startLesson}-{schedule.endLesson})</span>
                                                 </div>
                                             )}
@@ -286,7 +307,37 @@ export default function CreateSchedules(){
                         ))}
                     </tbody>
                 </table>
+        
             </div>
+            {selectedSchedule && (
+                <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
+                    <div className="bg-white rounded-xl shadow-xl p-6 w-80">
+                        <h3 className="text-lg font-bold text-blue-800 mb-4 border-b pb-2">Chi tiết lịch học</h3>
+                        <div className="space-y-2 text-sm text-gray-700 mb-6">
+                            <p><span className="font-semibold">Môn học:</span> {selectedSchedule.subjectName}</p>
+                            <p><span className="font-semibold">Giáo viên:</span> {selectedSchedule.teacherName}</p>
+                            <p><span className="font-semibold">Thứ:</span> {selectedSchedule.dayOfWeek}</p>
+                            <p><span className="font-semibold">Tiết:</span> {selectedSchedule.startLesson} - {selectedSchedule.endLesson}</p>
+                            <p><span className="font-semibold">Học kỳ:</span> {selectedSchedule.semester}</p>
+                            <p><span className="font-semibold">Năm học:</span> {selectedSchedule.academicYear}</p>
+                        </div>
+                        <div className="flex gap-3 justify-end">
+                            <button
+                                onClick={() => setSelectedSchedule(null)}
+                                className="px-4 py-2 rounded bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm"
+                            >
+                                Đóng
+                            </button>
+                            <button
+                                onClick={handleDelete}
+                                className="px-4 py-2 rounded bg-red-600 hover:bg-red-700 text-white text-sm font-semibold"
+                            >
+                                Xóa lịch
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

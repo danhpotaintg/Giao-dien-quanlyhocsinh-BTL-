@@ -112,7 +112,7 @@ export default function HomeroomTeacherClass(){
                     <td className="border p-2 text-center w-16">{teacher.subjectName}</td>
                     <td className="border p-2 text-center w-16">
                         {teacher.className ? (
-                            <span>{teacher.className}</span>
+                            <span>{teacher.className}-{teacher.classYear}</span>
                         ) : (
                             <div>
                                 <select 

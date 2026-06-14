@@ -152,7 +152,7 @@ export default function AssignTeacher() {
                                             {schedule && (
                                                 <div className="flex flex-col">
                                                     <span className="font-bold text-blue-900">{schedule.subjectName}</span>
-                                                    <span className="text-xs font-semibold text-gray-500">Lớp: {schedule.className}</span>
+                                                    <span className="text-xs font-semibold text-gray-500">Lớp: {schedule.className}-{schedule.classYear}</span>
                                                     <div className="absolute inset-0 bg-blue-600 bg-opacity-0 group-hover:bg-opacity-10 flex items-center justify-center transition-all">
                                                         <span className="text-[10px] text-blue-700 font-bold opacity-0 group-hover:opacity-100 uppercase mt-12">Chọn thay thế</span>
                                                     </div>
