@@ -38,6 +38,12 @@ export default function StudentSchedule(){
         if(!base) return [];
         return [base, base + 1, base + 2];
     };
+    
+    useEffect(() => {
+        if (data?.classRoom?.academicYear) {
+            setSelectedYear(data.classRoom.academicYear);
+        }
+    }, [data]);
 
     useEffect(() => {
         const fetchSchedule = async () => {

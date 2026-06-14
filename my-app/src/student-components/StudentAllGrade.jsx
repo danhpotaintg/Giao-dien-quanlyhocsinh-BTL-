@@ -103,7 +103,7 @@ export default function StudentAllGrade() {
             {/* Ghi chú */}
             <div className="mt-4 p-3 bg-blue-50 rounded border border-blue-100">
                 <p className="text-sm text-blue-700">
-                    <strong>Ghi chú:</strong> Điểm trung bình môn (TBM) được tính theo trọng số: Thường xuyên (x1), Giữa kỳ (x2), Cuối kỳ (x3).
+                    <strong>Ghi chú:</strong> Điểm trung bình môn (TBM) được tính theo trọng số: Thường xuyên (x1), Giữa kỳ (x2), Cuối kỳ (x5).
                     Mọi thắc mắc về điểm số vui lòng liên hệ trực tiếp giáo viên bộ môn.
                 </p>
             </div>

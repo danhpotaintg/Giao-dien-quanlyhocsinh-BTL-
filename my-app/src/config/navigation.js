@@ -36,18 +36,17 @@ export const MENU_CONFIG = {
   
   teacher: [
     {
-      title: 'Thông tin tài khoản',
-      children: [
-        { title: 'Cập nhật ảnh đại diện', path: '/profile/avatar' },
-        { title: 'Thông tin cá nhân', path: '/profile/teacher-update' },
-      ]
+      title: 'Thông tin cá nhân', path: '/profile/teacher-update',
+      // children: [
+      //   { title: 'Cập nhật ảnh đại diện', path: '/profile/avatar' },
+      //   { title: 'Thông tin cá nhân', path: '/profile/teacher-update' },
+      // ]
     },
     {
       title: 'Lớp học',
       children: [
         { title: 'Điểm danh', path: '/teacher/attendance' },
         { title: 'Cập nhật điểm số', path: '/teacher/grades' },
-        { title: 'Đổi vị trí', path: '/teacher/seats' },
       ]
     },
     { title: 'Xem thời khoá biểu', path: '/teacher/schedule/weekly' },
@@ -57,19 +56,15 @@ export const MENU_CONFIG = {
 
   student: [
     {
-      title: 'Thông tin tài khoản',
-      children: [
-        { title: 'Cập nhật ảnh đại diện', path: '/profile/avatar' },
-        { title: 'Thông tin cá nhân', path: '/profile/student-update' },
-      ]
+      title: 'Thông tin cá nhân', path: '/profile/student-update',
     },
     {
-      title: 'Học tập',
-      children: [
-        { title: 'Kết quả học tập', path: '/student/grades' },
-        { title: 'Biểu đồ điểm', path: '/student/charts' },
-        { title: 'Nhận lời khuyên', path: '/student/advice' },
-      ]
+      title: 'Kết quả học tập', path: '/student/grades',
+      // children: [
+      //   { title: 'Kết quả học tập', path: '/student/grades' },
+      //   { title: 'Biểu đồ điểm', path: '/student/charts' },
+      //   { title: 'Nhận lời khuyên', path: '/student/advice' },
+      // ]
     },
     { title: 'Xem thời khoá biểu', path: '/student/schedule/weekly' },
     { title: 'Gửi đơn xin nghỉ phép', path: '/student/leave-request' },

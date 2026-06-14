@@ -6,6 +6,7 @@ import NotificationBell from './NotificationBell';
 
 export default function Layout({ userRole, onLogout }) {
   const navigate = useNavigate();
+  const [openMenu, setOpenMenu] = useState(null);
   // Đảm bảo không bị lỗi nếu userRole chưa load kịp
   const menuItems = userRole ? MENU_CONFIG[userRole.toLowerCase()] || [] : [];
   
@@ -27,34 +28,55 @@ export default function Layout({ userRole, onLogout }) {
 
         <nav className="flex-1 pt-4 overflow-y-auto custom-scrollbar">
           <ul className="space-y-1">
-            {menuItems.map((item, index) => (
-              <li key={index} className="relative group">
-                <button 
-                  onClick={() => !item.children && navigate(item.path)}
-                  className="w-full text-left px-6 py-3 hover:bg-gray-800 transition-colors flex justify-between items-center"
-                >
-                  {item.title}
-                  {item.children && <span className="text-xs text-gray-400">▶</span>}
-                </button>
+            {menuItems.map((item, index) => {
+              const hasChildren = item.children && item.children.length > 0;
+              const isOpen = openMenu === index;
 
-                {item.children && (
-                  <ul className="absolute left-full top-0 w-56 bg-gray-800 hidden group-hover:block shadow-xl border-l border-gray-700">
-                    {item.children.map((child, idx) => (
-                      <li key={idx}>
-                        <button 
-                          onClick={() => navigate(child.path)}
-                          className="w-full text-left px-6 py-3 hover:bg-blue-600 transition-colors text-sm"
-                        >
-                          {child.title}
-                        </button>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </li>
-            ))}
+              return (
+                <li key={index} className="flex flex-col">
+                  {/* Mục cha */}
+                  <button 
+                    onClick={() => {
+                      if (hasChildren) {
+                        // Click để đóng/mở menu con
+                        setOpenMenu(isOpen ? null : index);
+                      } else {
+                        navigate(item.path);
+                      }
+                    }}
+                    className={`w-full text-left px-6 py-3 hover:bg-gray-800 transition-colors flex justify-between items-center ${
+                      isOpen ? 'bg-gray-800 text-blue-400' : ''
+                    }`}
+                  >
+                    <span>{item.title}</span>
+                    {hasChildren && (
+                      <span className={`text-xs text-gray-400 transition-transform duration-200 ${isOpen ? 'rotate-90' : ''}`}>
+                        ▶
+                      </span>
+                    )}
+                  </button>
+
+                  {/* Menu con hiển thị dạng thả xuống dưới */}
+                  {hasChildren && isOpen && (
+                    <ul className="bg-gray-950/50 pl-4 border-l-2 border-blue-500/30 py-1 space-y-1 dynamic-fade-in">
+                      {item.children.map((child, idx) => (
+                        <li key={idx}>
+                          <button 
+                            onClick={() => navigate(child.path)}
+                            className="w-full text-left px-6 py-2.5 hover:text-blue-400 text-gray-300 transition-colors text-sm"
+                          >
+                            {child.title}
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </li>
+              );
+            })}
           </ul>
         </nav>
+        
       </aside>
 
       <div className="flex-1 flex flex-col overflow-hidden relative">

@@ -122,7 +122,7 @@ export default function HomeroomTeacherClass(){
                                 >
                                     <option value="">Chọn lớp</option>
                                     {classData.map(clas => (
-                                        <option key={clas.id} value={clas.id}>{clas.className}</option>
+                                        <option key={clas.id} value={clas.id}>{clas.className}-{clas.academicYear}</option>
                                     ))}
                                 </select>
                                 {selectedClasses[teacher.id] && (
