@@ -3,20 +3,15 @@ import axios from 'axios';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 
 export default function StudentList() {
-    const { classId, className, academicYear } = useParams();
+    const { classId, className, academicYear, semester, selectedYear} = useParams();
     const navigate = useNavigate();
 
     const [stuData, setStuData] = useState([]);
     const [err, setErr] = useState("");
     const [subjectId, setSubjectId] = useState('');
-    const [semester, setSemester] = useState(1);
-    const [selectedYear, setSelectedYear] = useState(academicYear);
     const [gradeData, setGradeData] = useState(null);
 
-    const getAvailableYears = () => {
-        const base = parseInt(academicYear);
-        return [base, base + 1, base + 2];
-    };
+
 
     useEffect(() => {
         const fetchData = async () => {
@@ -51,39 +46,20 @@ export default function StudentList() {
 
     useEffect(() => {
         if (classId && subjectId) fetchGrades();
-    }, [classId, subjectId, semester, selectedYear]);
+    }, [classId, subjectId, semester, academicYear]);
 
     return (
         <div>
             <div className="flex justify-between items-center mb-4">
-                <h2 className="text-2xl font-bold text-blue-600">Lớp {className}</h2>
+                <h2 className="text-2xl font-bold text-blue-600">Lớp {className}-{academicYear}</h2>
 
                 <div className="flex gap-4 items-center">
                     <div>
-                        <label className="mr-2 font-bold">Năm học:</label>
-                        <select 
-                            value={selectedYear} 
-                            onChange={(e) => setSelectedYear(e.target.value)} 
-                            className="p-2 border rounded"
-                        >
-                            {getAvailableYears().map(year => (
-                                <option key={year} value={year}>{year}</option>
-                            ))}
-                        </select>
-                    </div>
-                    <div>
-                        <label className="mr-2 font-bold">Học kỳ:</label>
-                        <select 
-                            value={semester} 
-                            onChange={(e) => setSemester(Number(e.target.value))} 
-                            className="p-2 border rounded"
-                        >
-                            <option value={1}>Học kỳ 1</option>
-                            <option value={2}>Học kỳ 2</option>
-                        </select>
+                        <label className="mr-2 font-bold">Học kỳ: {semester}</label>
+                        <label className="mr-2 font-bold">Năm học: {selectedYear}</label>
                     </div>
                     <button
-                        onClick={() => navigate(`/teacher/grade-import/${classId}/${className}/${semester}/${academicYear}`)}
+                        onClick={() => navigate(`/teacher/grade-import/${classId}/${className}/${semester}/${selectedYear}`)}
                         className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
                     >
                         Import điểm từ Excel

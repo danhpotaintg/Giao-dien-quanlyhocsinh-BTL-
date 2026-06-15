@@ -108,7 +108,7 @@ function App() {
              <Route path="teacher/attendance" element={<Attendance />} /> 
              <Route path="teacher/attendance/:classId/:className" element={<AttendanceDetail />} />
              <Route path="teacher/grades" element={<ClassList />} />  
-             <Route path="teacher/class/:classId/:className/:academicYear" element={<StudentList />} />
+             <Route path="teacher/class/:classId/:className/:academicYear/:semester/:selectedYear" element={<StudentList />} />
              <Route path="teacher/grade/:studentId/:year/:semester" element={<GradeEntry />} />
              <Route path="teacher/grade-import/:classId/:className/:semester/:academicYear" element={<GradeImport />} />
              <Route path="teacher/schedule/weekly" element={<TeacherSchedule />} />

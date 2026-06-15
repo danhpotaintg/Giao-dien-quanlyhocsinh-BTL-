@@ -86,7 +86,7 @@ export default function ClassList(){
                                 <td className="border p-2 text-center w-16">{clas.academicYear}</td>
                                 <td className="border p-2 text-center w-16">
                                     <Link 
-                                        to={`/teacher/class/${clas.id}/${clas.className}/${clas.academicYear}`} 
+                                        to={`/teacher/class/${clas.id}/${clas.className}/${clas.academicYear}/${semester}/${selectedYear}`} 
                                         className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
                                     >
                                         Xem danh sách học sinh
